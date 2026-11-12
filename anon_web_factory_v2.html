@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#101010">
+<title>ANON WEB FACTORY</title>
+<style>
+:root{--bg:#0b0c0e;--panel:#15171a;--panel2:#1d2024;--line:#2a2d32;--gold:#d8ad55;--gold2:#f0cf83;--text:#f5f2eb;--muted:#a6a7aa;--green:#65c18c;--red:#e47d7d}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:15px/1.45 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+button,input,select,textarea{font:inherit}button{cursor:pointer}
+.app{max-width:1180px;margin:auto;padding:16px 14px 90px}
+header{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 2px 18px}
+.brand{display:flex;align-items:center;gap:11px}.logo{width:42px;height:42px;border-radius:13px;background:linear-gradient(145deg,#f1d28b,#a8792e);display:grid;place-items:center;color:#17130c;font-weight:900;font-size:19px;box-shadow:0 5px 22px #d8ad5528}
+.brand h1{font-size:15px;letter-spacing:1.4px;margin:0}.brand small{color:var(--muted);font-size:10px;letter-spacing:2px}
+.pill{border:1px solid #3a3427;background:#211d15;color:var(--gold2);border-radius:999px;padding:6px 10px;font-size:11px}
+h2{font-size:23px;margin:8px 0 4px}h3{font-size:15px;margin:0 0 12px}.sub{color:var(--muted);margin:0 0 20px;font-size:13px}
+.nav{display:flex;gap:7px;overflow:auto;padding:4px 0 14px;scrollbar-width:none}.nav button{white-space:nowrap;border:1px solid var(--line);background:var(--panel);color:var(--muted);padding:10px 13px;border-radius:11px;font-size:12px}.nav button.active{background:#302719;border-color:#80622f;color:var(--gold2)}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:11px}.stat,.card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:15px}.stat .label{font-size:11px;color:var(--muted)}.stat strong{display:block;font-size:25px;margin-top:7px;color:var(--gold2)}
+.card{margin-top:14px}.card-head{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:12px}
+.btn{border:1px solid #8a682e;background:linear-gradient(135deg,#e1bd70,#b9893d);color:#17130c;border-radius:10px;padding:10px 13px;font-weight:750;font-size:12px}.btn.secondary{background:var(--panel2);border-color:var(--line);color:var(--text)}.btn.danger{background:#321e20;border-color:#66383b;color:#f1aaaa}.btn.small{padding:7px 9px;font-size:11px}
+.actions{display:flex;gap:7px;flex-wrap:wrap}.field{display:flex;flex-direction:column;gap:6px;margin:10px 0}.field label{font-size:12px;color:var(--muted)}input,select,textarea{width:100%;background:#0e1012;border:1px solid var(--line);border-radius:10px;color:var(--text);padding:11px 12px;outline:none}input:focus,select:focus,textarea:focus{border-color:#a98242}textarea{min-height:100px;resize:vertical}
+.formgrid{display:grid;grid-template-columns:1fr 1fr;gap:0 12px}.full{grid-column:1/-1}
+.list{display:grid;gap:9px}.item{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;background:#101214;border:1px solid var(--line);border-radius:12px;padding:12px}.item-main{min-width:0}.item strong{display:block;font-size:13px}.item small{color:var(--muted);display:block;margin-top:3px;overflow-wrap:anywhere}.item-actions{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}.tag{display:inline-block;border:1px solid #51432a;background:#211d15;color:var(--gold2);padding:3px 7px;border-radius:99px;font-size:10px;margin-top:6px}
+.empty{color:var(--muted);text-align:center;padding:25px 10px;font-size:13px}.hidden{display:none!important}.search{margin-bottom:10px}
+footer{color:#777;text-align:center;font-size:10px;padding:25px 0}
+.modal{position:fixed;inset:0;background:#000b;display:none;align-items:flex-end;justify-content:center;padding:12px;z-index:5}.modal.open{display:flex}.modalbox{width:min(620px,100%);max-height:92vh;overflow:auto;background:#17191c;border:1px solid #464039;border-radius:18px;padding:17px;box-shadow:0 15px 60px #000}.modalhead{display:flex;justify-content:space-between;align-items:center}
+.notice{border:1px solid #574727;background:#211d15;color:#e8d4a8;padding:11px 12px;border-radius:12px;font-size:12px;margin-top:12px}
+.bottom{position:fixed;bottom:0;left:0;right:0;background:#101113ed;backdrop-filter:blur(12px);border-top:1px solid var(--line);padding:9px 14px calc(9px + env(safe-area-inset-bottom));display:flex;justify-content:center;z-index:3}.bottom span{color:var(--muted);font-size:11px}
+@media(max-width:650px){.grid{grid-template-columns:repeat(2,1fr)}.formgrid{grid-template-columns:1fr}.full{grid-column:auto}.app{padding-left:12px;padding-right:12px}.item{flex-direction:column}.item-actions{justify-content:flex-start}.brand h1{font-size:13px}}
+</style>
+</head>
+<body>
+<div class="app">
+<header><div class="brand"><div class="logo">A</div><div><h1>ANON WEB FACTORY</h1><small>PAINEL DE OPERAÇÕES</small></div></div><span class="pill">● VERSÃO 2.0</span></header>
+<nav class="nav" id="nav">
+<button class="active" data-tab="home">Visão geral</button><button data-tab="leads">Prospecção</button><button data-tab="clients">Clientes</button><button data-tab="projects">Projetos</button><button data-tab="studio">Criador de sites</button><button data-tab="templates">Modelos</button><button data-tab="reports">Relatórios</button><button data-tab="finance">Financeiro</button><button data-tab="backup">Backup</button>
+</nav>
+<main>
+<section id="home" class="page">
+<h2>Visão geral</h2><p class="sub">Bem-vindo à sua central de criação de sites.</p>
+<div class="grid">
+<div class="stat"><span class="label">Empresas</span><strong id="sLeads">0</strong></div>
+<div class="stat"><span class="label">Interessados</span><strong id="sInterested">0</strong></div>
+<div class="stat"><span class="label">Projetos ativos</span><strong id="sProjects">0</strong></div>
+<div class="stat"><span class="label">Vendas registradas</span><strong id="sSales">R$ 0</strong></div>
+</div>
+<div class="card"><div class="card-head"><h3>Atalhos rápidos</h3></div><div class="actions"><button class="btn" onclick="openLead()">+ Nova empresa</button><button class="btn secondary" onclick="openProject()">+ Novo projeto</button><button class="btn secondary" onclick="go('backup')">Fazer backup</button></div></div>
+<div class="card"><h3>Últimas empresas cadastradas</h3><div id="recent" class="list"></div></div>
+<div class="notice">Seus dados ficam salvos neste navegador. Use a área Backup para exportar uma cópia antes de limpar os dados do aparelho ou trocar de navegador.</div>
+</section>
+<section id="leads" class="page hidden">
+<h2>Prospecção</h2><p class="sub">Organize empresas e prepare abordagens individuais.</p>
+<div class="actions"><button class="btn" onclick="openLead()">+ Cadastrar empresa</button></div>
+<div class="card"><input class="search" id="leadSearch" placeholder="Buscar por empresa, cidade ou contato..." oninput="renderLeads()"><div id="leadList" class="list"></div></div>
+<div class="card"><h3>Gerador de mensagem</h3>
+<div class="field"><label>Nome da empresa</label><input id="msgName" placeholder="Ex.: Studio Fábio Alvarenga"></div>
+<div class="field"><label>Seu nome</label><input id="myName" value="Renan"></div>
+<div class="field"><label>Tipo de negócio</label><input id="msgType" placeholder="Ex.: academia, restaurante, salão"></div>
+<div class="field"><label>Mensagem personalizada</label><textarea id="msgText">Olá, boa tarde! Tudo bem?
+
+É da equipe da [EMPRESA]?
+
+Meu nome é [SEU NOME], trabalho com criação de sites profissionais e ajudo empresas a fortalecerem sua presença na internet, apresentando seus serviços de forma profissional.
+
+Gostaria de saber se vocês teriam interesse em conhecer uma demonstração de como poderia ser um site exclusivo para a empresa.
+
+Posso enviar uma prévia sem compromisso?
+
+Agradeço pela atenção!</textarea></div>
+<div class="actions"><button class="btn" onclick="generateMessage()">Personalizar mensagem</button><button class="btn secondary" onclick="copyMessage()">Copiar mensagem</button></div>
+<p class="sub" style="margin:10px 0 0">Envie somente abordagens apropriadas e respeite pedidos para não receber novas mensagens. Não use disparos em massa.</p>
+</div>
+</section>
+<section id="clients" class="page hidden"><h2>Clientes</h2><p class="sub">Acompanhe quem já virou cliente.</p><div class="card"><div class="actions"><button class="btn" onclick="openClient()">+ Novo cliente</button></div><div id="clientList" class="list" style="margin-top:12px"></div></div></section>
+<section id="projects" class="page hidden"><h2>Projetos</h2><p class="sub">Controle a produção e entrega dos sites.</p><div class="card"><div class="actions"><button class="btn" onclick="openProject()">+ Novo projeto</button></div><div id="projectList" class="list" style="margin-top:12px"></div></div></section>
+<section id="studio" class="page hidden"><h2>Criador de sites</h2><p class="sub">Monte um briefing e gere um prompt pronto para usar em uma ferramenta de criação de sites.</p><div class="card"><div class="formgrid"><div class="field"><label>Nome do negócio</label><input id="siteName" placeholder="Ex.: The Best Açaí"></div><div class="field"><label>Segmento</label><select id="siteType"><option>Restaurante</option><option>Loja de açaí</option><option>Academia</option><option>Salão de beleza</option><option>Clínica</option><option>Pet shop</option><option>Prestador de serviços</option><option>Outro</option></select></div><div class="field"><label>Cidade / região</label><input id="siteCity" placeholder="Cidade - UF"></div><div class="field"><label>Estilo visual</label><select id="siteStyle"><option>Moderno e profissional</option><option>Luxuoso e elegante</option><option>Jovem e vibrante</option><option>Minimalista</option><option>Rústico e acolhedor</option></select></div><div class="field full"><label>Produtos, serviços e diferenciais</label><textarea id="siteDetails" placeholder="Descreva o que a empresa oferece, horários, diferenciais e público..."></textarea></div><div class="field full"><label>Contato / chamada principal</label><input id="siteContact" placeholder="WhatsApp, telefone ou Instagram"></div></div><div class="actions"><button class="btn" onclick="buildSitePrompt()">Gerar prompt profissional</button><button class="btn secondary" onclick="copySitePrompt()">Copiar prompt</button></div><div class="field"><label>Prompt gerado</label><textarea id="sitePrompt" placeholder="O prompt aparecerá aqui..." style="min-height:260px"></textarea></div></div></section>
+<section id="templates" class="page hidden"><h2>Biblioteca de modelos</h2><p class="sub">Estruturas para acelerar o briefing e a criação de sites.</p><div class="list" id="templateList"></div></section>
+<section id="reports" class="page hidden"><h2>Relatórios</h2><p class="sub">Acompanhe seu funil comercial e sua produção.</p><div class="grid"><div class="stat"><span class="label">Taxa de interesse</span><strong id="rRate">0%</strong></div><div class="stat"><span class="label">Conversão em clientes</span><strong id="rClients">0%</strong></div><div class="stat"><span class="label">Projetos entregues</span><strong id="rDelivered">0</strong></div><div class="stat"><span class="label">Ticket médio</span><strong id="rTicket">R$ 0</strong></div></div><div class="card"><h3>Funil de prospecção</h3><div id="funnel" class="list"></div></div><div class="card"><h3>Resumo financeiro</h3><p id="rFinance" class="sub"></p></div></section>
+<section id="finance" class="page hidden"><h2>Financeiro</h2><p class="sub">Registre entradas de projetos vendidos.</p><div class="grid"><div class="stat"><span class="label">Total recebido</span><strong id="fTotal">R$ 0</strong></div><div class="stat"><span class="label">Vendas</span><strong id="fCount">0</strong></div></div><div class="card"><div class="actions"><button class="btn" onclick="openSale()">+ Registrar venda</button></div><div id="saleList" class="list" style="margin-top:12px"></div></div></section>
+<section id="backup" class="page hidden"><h2>Backup e dados</h2><p class="sub">Proteja seus cadastros e transfira-os para outro aparelho.</p><div class="card"><h3>Exportar backup</h3><p class="sub">Baixa um arquivo JSON com empresas, clientes, projetos e vendas.</p><button class="btn" onclick="exportData()">Baixar meu backup</button></div><div class="card"><h3>Importar backup</h3><p class="sub">Importar substitui os dados atuais. Exporte os dados atuais antes.</p><input type="file" id="importFile" accept="application/json"><button class="btn secondary" style="margin-top:10px" onclick="importData()">Importar arquivo</button></div><div class="card"><h3>Apagar dados</h3><p class="sub">Esta ação não pode ser desfeita. Exporte seu backup antes.</p><button class="btn danger" onclick="clearData()">Apagar todos os dados</button></div><div class="notice">Privacidade: esta versão não envia seus cadastros para um servidor. Eles ficam neste navegador/aparelho.</div></section>
+</main>
+<footer>ANON WEB FACTORY · VERSÃO 2.0 · FEITO PARA ORGANIZAR SEU NEGÓCIO</footer>
+</div>
+<div class="bottom"><span>ANON WEB FACTORY · Gestão simples, negócio organizado.</span></div>
+<div class="modal" id="modal"><div class="modalbox"><div class="modalhead"><h3 id="modalTitle">Cadastro</h3><button class="btn secondary small" onclick="closeModal()">Fechar ✕</button></div><div id="modalBody"></div></div></div>
+<script>
+const KEY='anon_web_factory_v1';
+let db={leads:[],clients:[],projects:[],sales:[],activities:[]};
+try{const saved=JSON.parse(localStorage.getItem(KEY));if(saved)db={...db,...saved,activities:saved.activities||[]}}catch(e){}
+const $=id=>document.getElementById(id);
+const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,7);
+const save=()=>{localStorage.setItem(KEY,JSON.stringify(db));renderAll()};
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const money=n=>Number(n||0).toLocaleString('pt-BR',{style:'currency',currency:'BRL'});
+function go(tab){document.querySelectorAll('.page').forEach(x=>x.classList.add('hidden'));$(tab).classList.remove('hidden');document.querySelectorAll('.nav button').forEach(b=>b.classList.toggle('active',b.dataset.tab===tab));window.scrollTo(0,0);renderAll()}
+document.querySelectorAll('.nav button').forEach(b=>b.addEventListener('click',()=>go(b.dataset.tab)));
+function openModal(title,body){$('modalTitle').textContent=title;$('modalBody').innerHTML=body;$('modal').classList.add('open')}
+function closeModal(){$('modal').classList.remove('open')}
+function formField(label,id,placeholder='',type='text',value=''){return `<div class="field"><label>${label}</label><input id="${id}" type="${type}" placeholder="${placeholder}" value="${esc(value)}"></div>`}
+function openLead(id=null){const x=db.leads.find(a=>a.id===id)||{};openModal(id?'Editar empresa':'Nova empresa',`
+<div class="formgrid">${formField('Nome da empresa *','lName','Nome', 'text',x.name||'')}${formField('WhatsApp (com DDD)','lPhone','5511999999999','tel',x.phone||'')}${formField('Cidade','lCity','Cidade - UF','text',x.city||'')}<div class="field"><label>Status</label><select id="lStatus">${['Novo contato','Aguardando resposta','Interessado','Não interessado','Cliente'].map(s=>`<option ${x.status===s?'selected':''}>${s}</option>`).join('')}</select></div><div class="field full"><label>Observações</label><textarea id="lNotes">${esc(x.notes||'')}</textarea></div></div><div class="actions"><button class="btn" onclick="saveLead('${id||''}')">Salvar empresa</button></div>`)}
+function saveLead(id){const name=$('lName').value.trim();if(!name)return alert('Informe o nome da empresa.');const old=db.leads.find(x=>x.id===id);const data={id:id||uid(),name,phone:$('lPhone').value.trim(),city:$('lCity').value.trim(),status:$('lStatus').value,notes:$('lNotes').value.trim(),updated:new Date().toISOString()};if(id){db.leads=db.leads.map(x=>x.id===id?data:x);if(old&&old.status!==data.status)addActivity(id,`Status alterado de ${old.status} para ${data.status}`)}else{db.leads.unshift(data);addActivity(data.id,'Empresa cadastrada')}closeModal();save()}
+function wa(phone){let n=(phone||'').replace(/\D/g,'');if(n.length===11)n='55'+n;if(!n.startsWith('55')&&n.length>=10)n='55'+n;return n?'https://wa.me/'+n:''}
+function leadCard(x){return `<div class="item"><div class="item-main"><strong>${esc(x.name)}</strong><small>${esc(x.city||'Cidade não informada')} · ${esc(x.phone||'Sem WhatsApp')}</small><span class="tag">${esc(x.status)}</span>${x.notes?`<small>${esc(x.notes)}</small>`:''}</div><div class="item-actions">${x.phone?`<button class="btn small secondary" onclick="window.open('${wa(x.phone)}','_blank')">WhatsApp</button>`:''}<button class="btn small secondary" onclick="logLeadActivity('${x.id}')">Histórico</button><button class="btn small secondary" onclick="editLead('${x.id}')">Editar</button><button class="btn small danger" onclick="del('leads','${x.id}')">Excluir</button></div></div>`}
+function editLead(id){openLead(id)}
+function addActivity(leadId,note){db.activities.unshift({id:uid(),leadId,note,date:new Date().toISOString()})}
+function logLeadActivity(id){const history=db.activities.filter(a=>a.leadId===id);const lines=history.length?history.map(a=>new Date(a.date).toLocaleString('pt-BR')+' — '+a.note).join('\n'):'Ainda não há atividades registradas.';alert('HISTÓRICO\n\n'+lines);const note=prompt('Adicionar nova atividade (contato, retorno ou próximo passo):');if(!note||!note.trim())return;addActivity(id,note.trim());save();alert('Atividade registrada.')}
+function renderLeads(){const q=($('leadSearch')?.value||'').toLowerCase();const a=db.leads.filter(x=>(x.name+' '+x.city+' '+x.phone).toLowerCase().includes(q));$('leadList').innerHTML=a.length?a.map(leadCard).join(''):'<div class="empty">Nenhuma empresa cadastrada ainda.</div>'}
+function openClient(id=null){const x=db.clients.find(a=>a.id===id)||{};openModal(id?'Editar cliente':'Novo cliente',`<div class="formgrid">${formField('Nome *','cName','Nome do cliente','text',x.name||'')}${formField('WhatsApp','cPhone','DDD + número','tel',x.phone||'')}${formField('Serviço contratado','cService','Ex.: site institucional','text',x.service||'')}<div class="field"><label>Status</label><select id="cStatus">${['Ativo','Em andamento','Concluído'].map(s=>`<option ${x.status===s?'selected':''}>${s}</option>`).join('')}</select></div></div><button class="btn" onclick="saveClient('${id||''}')">Salvar cliente</button>`)}
+function saveClient(id){let name=$('cName').value.trim();if(!name)return alert('Informe o nome.');let d={id:id||uid(),name,phone:$('cPhone').value,service:$('cService').value,status:$('cStatus').value};if(id)db.clients=db.clients.map(x=>x.id===id?d:x);else db.clients.unshift(d);closeModal();save()}
+function openProject(id=null){const x=db.projects.find(a=>a.id===id)||{};openModal(id?'Editar projeto':'Novo projeto',`<div class="formgrid">${formField('Nome do projeto *','pName','Ex.: Site da academia','text',x.name||'')}${formField('Cliente','pClient','Nome do cliente','text',x.client||'')}<div class="field"><label>Etapa</label><select id="pStatus">${['A iniciar','Em desenvolvimento','Aguardando aprovação','Entregue'].map(s=>`<option ${x.status===s?'selected':''}>${s}</option>`).join('')}</select></div>${formField('Link do site','pUrl','https://...','url',x.url||'')}</div><button class="btn" onclick="saveProject('${id||''}')">Salvar projeto</button>`)}
+function saveProject(id){let name=$('pName').value.trim();if(!name)return alert('Informe o projeto.');let d={id:id||uid(),name,client:$('pClient').value,status:$('pStatus').value,url:$('pUrl').value};if(id)db.projects=db.projects.map(x=>x.id===id?d:x);else db.projects.unshift(d);closeModal();save()}
+function openSale(){openModal('Registrar venda',`<div class="formgrid">${formField('Cliente / empresa *','vName','Nome')}${formField('Valor recebido (R$) *','vValue','Ex.: 500','number')}<div class="field"><label>Data</label><input id="vDate" type="date" value="${new Date().toISOString().slice(0,10)}"></div></div><button class="btn" onclick="saveSale()">Registrar venda</button>`)}
+function saveSale(){let name=$('vName').value.trim(),value=Number($('vValue').value);if(!name||!value||value<0)return alert('Informe cliente e valor válido.');db.sales.unshift({id:uid(),name,value,date:$('vDate').value});closeModal();save()}
+function del(type,id){if(confirm('Tem certeza que deseja excluir este registro?')){db[type]=db[type].filter(x=>x.id!==id);save()}}
+function renderAll(){
+$('sLeads').textContent=db.leads.length;$('sInterested').textContent=db.leads.filter(x=>x.status==='Interessado').length;$('sProjects').textContent=db.projects.filter(x=>x.status!=='Entregue').length;$('sSales').textContent=money(db.sales.reduce((s,x)=>s+x.value,0));
+$('recent').innerHTML=db.leads.slice(0,4).map(x=>`<div class="item"><div class="item-main"><strong>${esc(x.name)}</strong><small>${esc(x.city||'')}</small></div><span class="tag">${esc(x.status)}</span></div>`).join('')||'<div class="empty">Cadastre sua primeira empresa para começar.</div>';
+renderLeads();
+$('clientList').innerHTML=db.clients.map(x=>`<div class="item"><div class="item-main"><strong>${esc(x.name)}</strong><small>${esc(x.service||'Serviço não informado')} · ${esc(x.phone||'')}</small><span class="tag">${esc(x.status)}</span></div><div class="item-actions"><button class="btn small secondary" onclick="editClient('${x.id}')">Editar</button><button class="btn small danger" onclick="del('clients','${x.id}')">Excluir</button></div></div>`).join('')||'<div class="empty">Nenhum cliente cadastrado.</div>';
+$('projectList').innerHTML=db.projects.map(x=>`<div class="item"><div class="item-main"><strong>${esc(x.name)}</strong><small>${esc(x.client||'Sem cliente vinculado')}</small><span class="tag">${esc(x.status)}</span>${x.url?`<small><a style="color:var(--gold2)" href="${esc(x.url)}" target="_blank" rel="noopener">Abrir site</a></small>`:''}</div><div class="item-actions"><button class="btn small secondary" onclick="editProject('${x.id}')">Editar</button><button class="btn small danger" onclick="del('projects','${x.id}')">Excluir</button></div></div>`).join('')||'<div class="empty">Nenhum projeto cadastrado.</div>';
+const total=db.sales.reduce((s,x)=>s+x.value,0);$('fTotal').textContent=money(total);$('fCount').textContent=db.sales.length;
+renderV2();
+$('saleList').innerHTML=db.sales.map(x=>`<div class="item"><div class="item-main"><strong>${esc(x.name)}</strong><small>${esc(x.date||'')}</small></div><strong>${money(x.value)}</strong><button class="btn small danger" onclick="del('sales','${x.id}')">Excluir</button></div>`).join('')||'<div class="empty">Nenhuma venda registrada.</div>';
+}
+function editClient(id){openClient(id)}function editProject(id){openProject(id)}
+function buildSitePrompt(){const n=$('siteName').value.trim()||'Nome do negócio';const t=$('siteType').value;const c=$('siteCity').value.trim()||'Cidade não informada';const st=$('siteStyle').value;const d=$('siteDetails').value.trim()||'Apresente os produtos e serviços principais';const ct=$('siteContact').value.trim()||'Adicionar botão de contato';$('sitePrompt').value=`Crie um site profissional, completo e responsivo para ${n}, um negócio do segmento ${t}, localizado em ${c}.\n\nOBJETIVO: apresentar a empresa com credibilidade, atrair clientes e facilitar pedidos ou contatos.\nIDENTIDADE VISUAL: ${st}; layout premium, organizado, tipografia legível, boa hierarquia visual e excelente experiência no celular.\nCONTEÚDO E DIFERENCIAIS: ${d}.\nESTRUTURA: cabeçalho com logotipo e menu; seção inicial com título forte e chamada para ação; apresentação da empresa; produtos/serviços; diferenciais; galeria ou portfólio; avaliações apenas se fornecidas pelo cliente; perguntas frequentes; localização e horário quando informados; rodapé completo.\nCONTATO: ${ct}. Incluir botões de contato visíveis e links funcionais somente com dados fornecidos.\nREQUISITOS: design mobile-first, acessibilidade, carregamento rápido, SEO básico, textos em português do Brasil, imagens coerentes com o segmento e sem inventar endereço, preços, certificações ou avaliações. Entregue todas as páginas e seções prontas, com aparência profissional.`}
+function copySitePrompt(){const t=$('sitePrompt').value;if(!t)return alert('Gere o prompt primeiro.');copyText(t)}
+function copyText(t){if(navigator.clipboard?.writeText)navigator.clipboard.writeText(t).then(()=>alert('Copiado!')).catch(()=>fallbackCopy(t));else fallbackCopy(t)}
+const templates=[['Restaurante','Cardápio, pratos em destaque, reservas/ pedidos, localização e horários.'],['Loja de açaí','Cardápio de tamanhos e adicionais, montagem do pedido, delivery e WhatsApp.'],['Academia','Planos, modalidades, equipe, estrutura, horários e aula experimental.'],['Salão de beleza','Serviços, profissionais, galeria, agendamento e localização.'],['Clínica','Especialidades, equipe, orientações, convênios somente se confirmados e contato.'],['Pet shop','Produtos, banho e tosa, serviços, equipe, horários e agendamento.'],['Prestador de serviços','Serviços, área atendida, portfólio, processo de orçamento e contato.']];
+function renderV2(){const el=$('templateList');if(el)el.innerHTML=templates.map(([n,d])=>`<div class="item"><div class="item-main"><strong>${n}</strong><small>${d}</small></div><button class="btn small secondary" onclick="useTemplate('${n}')">Usar</button></div>`).join('');const total=db.leads.length,inter=db.leads.filter(x=>x.status==='Interessado').length,clients=db.clients.length+db.leads.filter(x=>x.status==='Cliente').length,delivered=db.projects.filter(x=>x.status==='Entregue').length,avg=db.sales.length?db.sales.reduce((a,x)=>a+Number(x.value||0),0)/db.sales.length:0;const put=(id,v)=>{const e=$(id);if(e)e.textContent=v};put('rRate',total?Math.round(inter/total*100)+'%':'0%');put('rClients',total?Math.round(clients/total*100)+'%':'0%');put('rDelivered',delivered);put('rTicket',money(avg));const f=$('funnel');if(f)f.innerHTML=['Novo contato','Aguardando resposta','Interessado','Não interessado','Cliente'].map(st=>`<div class="item"><span>${st}</span><strong>${db.leads.filter(x=>x.status===st).length}</strong></div>`).join('');put('rFinance',`${db.sales.length} venda(s) registrada(s), total de ${money(db.sales.reduce((a,x)=>a+Number(x.value||0),0))}.`)}
+function useTemplate(n){$('siteType').value=n==='Loja de açaí'?'Loja de açaí':n;go('studio');$('siteDetails').focus()}
+
+function generateMessage(){let name=$('msgName').value.trim()||'[NOME DA EMPRESA]',mine=$('myName').value.trim()||' [SEU NOME]',type=$('msgType').value.trim();let t=$('msgText').value.replaceAll('[EMPRESA]',name).replaceAll('[SEU NOME]',mine);if(type)t=t.replace('empresa',type);$('msgText').value=t}
+function copyMessage(){let t=$('msgText').value;if(navigator.clipboard?.writeText){navigator.clipboard.writeText(t).then(()=>alert('Mensagem copiada!')).catch(()=>fallbackCopy(t))}else fallbackCopy(t)}
+function fallbackCopy(t){let a=document.createElement('textarea');a.value=t;document.body.appendChild(a);a.select();document.execCommand('copy');a.remove();alert('Mensagem copiada!')}
+function exportData(){const blob=new Blob([JSON.stringify(db,null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='anon-web-factory-backup-'+new Date().toISOString().slice(0,10)+'.json';a.click();URL.revokeObjectURL(a.href)}
+function importData(){const f=$('importFile').files[0];if(!f)return alert('Escolha um arquivo de backup.');const r=new FileReader();r.onload=()=>{try{const d=JSON.parse(r.result);if(!d||!Array.isArray(d.leads)||!Array.isArray(d.clients)||!Array.isArray(d.projects)||!Array.isArray(d.sales))throw Error();if(!confirm('Isso substituirá os dados atuais. Continuar?'))return;db={...d,activities:d.activities||[]};save();alert('Backup importado com sucesso!')}catch(e){alert('Arquivo inválido ou incompatível.')}};r.readAsText(f)}
+function clearData(){if(confirm('Apagar TODOS os cadastros e vendas deste navegador?')){db={leads:[],clients:[],projects:[],sales:[],activities:[]};save();alert('Dados apagados.')}}
+renderAll();
+</script>
+</body></html>
