@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#101010">
+<title>ANON WEB FACTORY</title>
+<style>
+:root{--bg:#0b0d12;--panel:#141821;--panel2:#1a202b;--gold:#d8b46a;--text:#f5f7fb;--muted:#9ba5b5;--line:#293140;--radius:16px}
+*{box-sizing:border-box}
+body{margin:0;background:radial-gradient(ellipse at 15% -10%,#253047 0,transparent 38%),var(--bg);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Arial,sans-serif}
+header{padding:19px clamp(16px,4vw,48px);background:#10141deF;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;position:sticky;top:0;z-index:5;backdrop-filter:blur(14px)}
+.logo{font-size:20px;font-weight:900;letter-spacing:1.3px}.logo span{color:var(--gold)}
+header small{color:var(--muted)}
+nav{display:flex;gap:7px;padding:11px clamp(10px,4vw,48px);overflow-x:auto;background:#10141d;border-bottom:1px solid var(--line);position:sticky;top:66px;z-index:4}
+nav button{white-space:nowrap;background:#1a202b;color:#dbe1eb;border:1px solid #30394a;padding:10px 14px;border-radius:10px;cursor:pointer}
+nav button.active,button.primary{background:linear-gradient(135deg,#e4c47e,#bd9144);color:#17130c;border-color:#d8b46a;font-weight:800}
+main{max-width:1320px;margin:auto;padding:clamp(14px,3vw,30px)}
+section.page{display:none}section.page.active{display:block}
+h1{font-size:clamp(25px,4vw,34px);margin:10px 0 5px;letter-spacing:-.7px}h2{font-size:19px;margin-top:0}
+.subtitle{color:var(--muted);margin-bottom:22px;line-height:1.6}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px}
+.card{background:linear-gradient(145deg,#171d28,#121720);border:1px solid var(--line);border-radius:var(--radius);padding:19px;margin-bottom:15px;box-shadow:0 12px 35px #0002}
+.stat{font-size:32px;color:var(--gold);font-weight:850;margin-top:10px}
+label{display:block;font-size:13px;color:#cbd3df;margin:14px 0 7px;font-weight:650}
+input,textarea,select{width:100%;padding:12px 13px;background:#0c1119;border:1px solid #354052;color:white;border-radius:10px;font:inherit;outline:none}
+input:focus,textarea:focus,select:focus{border-color:var(--gold);box-shadow:0 0 0 3px #d8b46a22}
+input[type=color]{height:46px;padding:5px}
+textarea{min-height:94px;resize:vertical}
+button{padding:11px 15px;border:1px solid #3a4557;border-radius:10px;background:#222a37;color:white;cursor:pointer;font-weight:750;transition:.2s}
+button:hover{filter:brightness(1.13);transform:translateY(-1px)}
+.actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:15px}
+.item{padding:13px 2px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;gap:10px;align-items:center}
+.item:last-child{border:0}.muted{color:var(--muted);font-size:13px;line-height:1.55}
+#preview{width:100%;height:760px;border:1px solid #3a4557;border-radius:13px;background:white}
+.notice{background:#292317;border:1px solid #66532b;color:#f2d99f;padding:13px;border-radius:11px;font-size:13px;margin:12px 0 16px;line-height:1.6}
+.auto-images{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:16px 0}
+.auto-image-item{min-height:150px;padding:10px;border:1px solid var(--line);border-radius:12px;background:#171f2b;display:flex;flex-direction:column;justify-content:flex-start;gap:5px;overflow:hidden}.auto-image-item img{width:100%;height:118px;object-fit:cover;border-radius:8px;background:#0c1119;display:block}.auto-image-item span{margin-top:5px}
+.auto-image-item span{font-size:11px;color:var(--gold);font-weight:800;letter-spacing:.12em}
+.auto-image-item b{font-size:13px}.auto-image-item small{font-size:11px;color:var(--muted)}
+.field-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 14px}
+.field-grid .full{grid-column:1/-1}
+.steps{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0 18px}
+.step{padding:7px 10px;border-radius:999px;background:#202938;color:#cbd3df;font-size:12px;border:1px solid #354052}
+.step b{color:var(--gold)}
+footer{text-align:center;color:#6f7a8b;padding:25px;font-size:12px}
+@media(max-width:650px){.auto-images{grid-template-columns:1fr}.auto-image-item{min-height:76px}.auto-image-item img{height:170px}header{position:static}nav{top:0}.field-grid{grid-template-columns:1fr}.field-grid .full{grid-column:auto}main{padding:12px}.card{padding:15px}#preview{height:650px}}
+
+/* ANON WEB FACTORY — studio de busca automática */
+#studio>.subtitle{margin-bottom:18px}
+#studio>.notice,#studio>.steps{display:none!important}
+.factory-workspace{display:grid;grid-template-columns:minmax(310px,410px) minmax(0,1fr);gap:18px;align-items:start}
+.factory-side,.factory-preview{background:linear-gradient(145deg,#171d28,#111720);border:1px solid #30394a;border-radius:18px;padding:20px;box-shadow:0 18px 48px #0003;min-width:0}
+.factory-side h2,.factory-preview h2{font-size:18px;margin:0 0 7px}.factory-lead{font-size:13px;color:#9ba5b5;line-height:1.6;margin:0 0 16px}
+.factory-side label{margin-top:13px}.factory-side .field-grid{grid-template-columns:1fr}.factory-side .field-grid .full{grid-column:auto}.factory-side .form-section{border-top:1px solid #30394a;margin-top:18px;padding-top:14px}.factory-side .form-section h3{font-size:13px;color:#d8b46a;margin:0 0 8px}.factory-side .auto-images{grid-template-columns:1fr 1fr 1fr}.factory-side .auto-image-item{padding:6px;min-height:0}.factory-side .auto-image-item img{height:76px}.factory-side .auto-image-item b{font-size:10px}.factory-side .auto-image-item small{display:none}.factory-side .actions button{flex:1}.factory-side select,.factory-side input{background:#0b111a}
+.factory-status{font-size:12px;color:#b7c0ce;line-height:1.6;margin-top:12px;min-height:20px}.factory-preview-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:13px}.factory-live{font-size:11px;color:#a78bfa;font-weight:800;letter-spacing:.12em}.factory-preview #preview{height:calc(100vh - 245px);min-height:650px;border:1px solid #3a4557;border-radius:12px;background:white;display:block}
+.factory-export{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.factory-export button{flex:1}.factory-hint{font-size:11px;color:#8792a4;line-height:1.55;margin-top:12px}
+@media(max-width:900px){.factory-workspace{grid-template-columns:1fr}.factory-preview #preview{height:720px;min-height:560px}}
+@media(max-width:650px){.factory-side,.factory-preview{padding:15px}.factory-preview #preview{height:620px;min-height:500px}}
+
+
+/* Studio rebuild: clearer controls, stronger hierarchy and responsive workspace */
+.factory-side{background:linear-gradient(155deg,#171e29,#10151d);border-color:#3a4557}
+.factory-preview{background:linear-gradient(155deg,#171e29,#10151d);border-color:#3a4557}
+.factory-side .form-section h3{letter-spacing:.13em}
+.factory-side input,.factory-side textarea,.factory-side select{min-height:46px;border-radius:9px}
+.factory-side textarea{min-height:105px}
+.factory-side .actions .primary{background:linear-gradient(120deg,#e9ca83,#bd9144);box-shadow:0 8px 24px #d8b46a22}
+.factory-preview-head{padding-bottom:12px;border-bottom:1px solid #30394a}
+@media(max-width:900px){.factory-workspace{grid-template-columns:minmax(0,1fr)}.factory-preview #preview{height:75vh;min-height:560px}}
+</style>
+</head>
+<body>
+<header>
+  <div><div class="logo">ANON <span>WEB FACTORY</span></div><small>Seu centro de criação e gestão digital</small></div>
+  <small id="today"></small>
+</header>
+<nav>
+  <button class="active" data-page="home">Visão geral</button>
+  <button data-page="leads">Prospecção</button>
+  <button data-page="clients">Clientes</button>
+  <button data-page="projects">Projetos</button>
+  <button data-page="studio">Criador de sites</button>
+</nav>
+<main>
+<section id="home" class="page active">
+  <h1>Visão geral</h1><p class="subtitle">Bem-vindo à sua central de negócios.</p>
+  <div class="grid">
+    <div class="card">Empresas prospectadas<div class="stat" id="countLeads">0</div></div>
+    <div class="card">Clientes cadastrados<div class="stat" id="countClients">0</div></div>
+    <div class="card">Projetos registrados<div class="stat" id="countProjects">0</div></div>
+  </div>
+  <div class="card"><h2>Comece por aqui</h2><p class="muted">Cadastre empresas, acompanhe clientes e crie sites profissionais para apresentar seus projetos.</p>
+    <div class="actions"><button class="primary" onclick="showPage('studio')">Criar um site</button><button onclick="showPage('leads')">Adicionar empresa</button></div>
+  </div>
+</section>
+<section id="leads" class="page">
+  <h1>Prospecção</h1><p class="subtitle">Organize empresas que podem precisar de um site.</p>
+  <div class="card"><h2>Nova empresa</h2><label>Nome da empresa</label><input id="leadName" placeholder="Ex.: Studio Beleza">
+    <label>WhatsApp</label><input id="leadPhone" placeholder="Ex.: 5512999999999">
+    <label>Observações</label><textarea id="leadNote" placeholder="Informações sobre a empresa"></textarea>
+    <button class="primary" onclick="addLead()">Salvar empresa</button></div>
+  <div class="card"><h2>Empresas cadastradas</h2><div id="leadList"></div></div>
+</section>
+<section id="clients" class="page">
+  <h1>Clientes</h1><p class="subtitle">Mantenha seus contatos organizados.</p>
+  <div class="card"><label>Nome do cliente</label><input id="clientName" placeholder="Nome"><label>Contato</label><input id="clientPhone" placeholder="WhatsApp ou telefone"><button class="primary" onclick="addClient()">Cadastrar cliente</button></div>
+  <div class="card"><h2>Lista de clientes</h2><div id="clientList"></div></div>
+</section>
+<section id="projects" class="page">
+  <h1>Projetos</h1><p class="subtitle">Acompanhe seus trabalhos.</p>
+  <div class="card"><label>Nome do projeto</label><input id="projectName" placeholder="Ex.: Site da empresa"><label>Status</label><select id="projectStatus"><option>Em andamento</option><option>Em aprovação</option><option>Concluído</option></select><button class="primary" onclick="addProject()">Adicionar projeto</button></div>
+  <div class="card"><h2>Seus projetos</h2><div id="projectList"></div></div>
+</section>
+<section id="studio" class="page">
+  <h1>Criador de Sites</h1><p class="subtitle">Crie páginas com identidade visual, imagens e seções adaptadas ao ramo do negócio.</p>
+  <div class="factory-workspace" id="factoryWorkspace">
+    <div class="factory-side">
+      <h2>Dados da empresa</h2>
+      <p class="factory-lead">Preencha manualmente. O visual e as imagens se adaptam ao segmento escolhido.</p>
+      <div class="form-section"><h3>01 · NEGÓCIO</h3>
+        <label for="siteName">Nome da empresa *</label><input id="siteName" placeholder="Ex.: Garagem Z4">
+        <label for="siteCategory">Ramo de atividade *</label><select id="siteCategory"><option value="Oficina mecânica">Oficina mecânica</option><option value="Salão de beleza">Salão de beleza</option><option value="Barbearia">Barbearia</option><option value="Restaurante">Restaurante</option><option value="Cafeteria">Cafeteria</option><option value="Pet shop">Pet shop</option><option value="Clínica odontológica">Clínica odontológica</option><option value="Clínica médica">Clínica médica</option><option value="Academia">Academia</option><option value="Loja de roupas">Loja de roupas</option><option value="Joalheria">Joalheria</option><option value="Imobiliária">Imobiliária</option><option value="Fotografia">Fotografia</option><option value="Advocacia">Advocacia</option><option value="Outro negócio">Outro negócio</option></select>
+        <label for="siteDescription">Descrição da empresa *</label><textarea id="siteDescription" placeholder="Conte o que a empresa oferece e seus diferenciais."></textarea>
+      </div>
+      <div class="form-section"><h3>02 · CONTATO</h3>
+        <label for="siteAddress">Endereço / cidade</label><input id="siteAddress" placeholder="Rua, bairro, cidade - estado">
+        <label for="sitePhone">WhatsApp com DDD</label><input id="sitePhone" inputmode="tel" placeholder="Ex.: 5511999999999">
+        <label for="siteInstagram">Instagram (opcional)</label><input id="siteInstagram" placeholder="@suaempresa ou link do perfil">
+        <label for="siteEmail">E-mail (opcional)</label><input id="siteEmail" type="email" placeholder="contato@empresa.com.br">
+        <label for="siteHours">Horário de funcionamento (opcional)</label><input id="siteHours" placeholder="Seg a sex, 8h às 18h">
+        <label for="siteButton">Texto do botão principal</label><input id="siteButton" value="Fale conosco pelo WhatsApp">
+      </div>
+      <div class="form-section"><h3>03 · SERVIÇOS OU PRODUTOS</h3>
+        <label for="siteServices">Lista de serviços</label><textarea id="siteServices" placeholder="Separe por vírgulas. Ex.: Revisão, freios, suspensão, troca de óleo"></textarea>
+      </div>
+      <div class="form-section"><h3>04 · IMAGENS AUTOMÁTICAS</h3>
+        <p class="factory-hint">Selecionadas conforme o ramo informado. Não precisa colar URLs nem configurar API.</p>
+        <div class="auto-images">
+          <div class="auto-image-item"><img id="autoPreview1" alt="Imagem automática de capa"><span>01</span><b>Capa</b></div>
+          <div class="auto-image-item"><img id="autoPreview2" alt="Imagem automática de apresentação"><span>02</span><b>Apresentação</b></div>
+          <div class="auto-image-item"><img id="autoPreview3" alt="Imagem automática da galeria"><span>03</span><b>Galeria</b></div>
+        </div>
+        <input type="hidden" id="siteHeroImage" value=""><input type="hidden" id="siteImage2" value=""><input type="hidden" id="siteImage3" value="">
+      </div>
+      <div class="form-section"><h3>05 · IDENTIDADE VISUAL</h3>
+        <label for="siteStyle">Direção de arte</label><select id="siteStyle"><option value="modern">Contemporâneo</option><option value="luxury">Luxuoso e sofisticado</option><option value="minimal">Minimalista e claro</option><option value="bold">Urbano e marcante</option></select>
+        <div class="field-grid"><div><label for="siteColor">Cor principal</label><input type="color" id="siteColor" value="#e46b2e"></div><div><label for="siteColorSecondary">Cor secundária</label><input type="color" id="siteColorSecondary" value="#343b40"></div></div>
+      </div>
+      <div class="actions"><button class="primary" type="button" onclick="generateSite()">GERAR SITE PROFISSIONAL</button><button type="button" onclick="clearSiteForm()">Limpar</button></div>
+      <div class="factory-status" id="factoryStatus">Preencha os dados e gere a página. Você pode alterar as informações e gerar novamente.</div>
+    </div>
+    <div class="factory-preview">
+      <div class="factory-preview-head"><div><h2>Prévia do site</h2><div class="factory-lead" style="margin:3px 0 0">A prévia do seu site aparece aqui depois de gerar.</div></div><span class="factory-live">● AO VIVO</span></div>
+      <iframe id="preview" title="Prévia do site" srcdoc="<!doctype html><html lang='pt-BR'><meta charset='utf-8'><body style='font-family:Arial;display:grid;place-items:center;height:95vh;color:#667085;text-align:center'><div><h1>ANON WEB FACTORY</h1><p>Preencha os dados da empresa e gere seu site profissional.</p></div></body></html>"></iframe>
+      <div class="factory-export"><button class="primary" type="button" onclick="downloadSite()">BAIXAR SITE HTML</button><button type="button" onclick="openPreview()">ABRIR PRÉVIA</button></div>
+      <p class="factory-hint" id="siteMessage">Preencha os campos à esquerda e clique em Gerar site profissional.</p>
+    </div>
+  </div>
+</section>
+</main>
+<footer>ANON WEB FACTORY • Central de criação digital</footer>
+<script>
+const KEY="anon_web_factory_complete_v1";
+let data={leads:[],clients:[],projects:[]};
+let generatedHTML="";
+try{const saved=localStorage.getItem(KEY);if(saved)data={...data,...JSON.parse(saved)}}catch(e){}
+function saveData(){try{localStorage.setItem(KEY,JSON.stringify(data))}catch(e){alert("Não foi possível salvar neste navegador.")}updateDashboard()}
+function showPage(id){document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));document.querySelectorAll("nav button").forEach(b=>b.classList.remove("active"));document.getElementById(id).classList.add("active");const btn=document.querySelector('[data-page="'+id+'"]');if(btn)btn.classList.add("active")}
+document.querySelectorAll("nav button").forEach(btn=>btn.addEventListener("click",()=>showPage(btn.dataset.page)));
+function factoryServices(category){const c=String(category||"").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"");if(/pet|veterin/.test(c))return "Banho e tosa, cuidados para cães e gatos, consultas e orientação";if(/dent|odont/.test(c))return "Avaliação, prevenção, limpeza e tratamentos odontológicos";if(/restaurante|cafeteria|café/.test(c))return "Cardápio, pratos da casa, bebidas e atendimento";if(/barbear/.test(c))return "Corte masculino, barba, acabamento e cuidados pessoais";if(/beleza|salão/.test(c))return "Cabelo, manicure, tratamentos e cuidados de beleza";if(/academia|fitness/.test(c))return "Musculação, condicionamento físico e orientação de treino";if(/joalher|joia/.test(c))return "Joias, coleções, presentes e atendimento especializado";if(/oficina/.test(c))return "Manutenção, diagnóstico e revisão de veículos";if(/roupa|loja/.test(c))return "Coleções, novidades, peças e atendimento na loja";return "Atendimento especializado, serviços e soluções para cada cliente"}
+function safe(value){return String(value||"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+function addLead(){const name=document.getElementById("leadName").value.trim();if(!name){alert("Digite o nome da empresa.");return}data.leads.push({name,phone:document.getElementById("leadPhone").value.trim(),note:document.getElementById("leadNote").value.trim()});["leadName","leadPhone","leadNote"].forEach(id=>document.getElementById(id).value="");saveData();renderLists()}
+function addClient(){const name=document.getElementById("clientName").value.trim();if(!name){alert("Digite o nome do cliente.");return}data.clients.push({name,phone:document.getElementById("clientPhone").value.trim()});document.getElementById("clientName").value="";document.getElementById("clientPhone").value="";saveData();renderLists()}
+function addProject(){const name=document.getElementById("projectName").value.trim();if(!name){alert("Digite o nome do projeto.");return}data.projects.push({name,status:document.getElementById("projectStatus").value});document.getElementById("projectName").value="";saveData();renderLists()}
+function removeItem(type,index){if(!confirm("Deseja excluir este registro?"))return;data[type].splice(index,1);saveData();renderLists()}
+function renderLists(){
+ document.getElementById("leadList").innerHTML=data.leads.map((x,i)=>`<div class="item"><div><b>${safe(x.name)}</b><div class="muted">${safe(x.phone)} ${safe(x.note)}</div></div><button onclick="removeItem('leads',${i})">Excluir</button></div>`).join("")||'<p class="muted">Nenhuma empresa cadastrada.</p>';
+ document.getElementById("clientList").innerHTML=data.clients.map((x,i)=>`<div class="item"><div><b>${safe(x.name)}</b><div class="muted">${safe(x.phone)}</div></div><button onclick="removeItem('clients',${i})">Excluir</button></div>`).join("")||'<p class="muted">Nenhum cliente cadastrado.</p>';
+ document.getElementById("projectList").innerHTML=data.projects.map((x,i)=>`<div class="item"><div><b>${safe(x.name)}</b><div class="muted">${safe(x.status)}</div></div><button onclick="removeItem('projects',${i})">Excluir</button></div>`).join("")||'<p class="muted">Nenhum projeto cadastrado.</p>';
+}
+function updateDashboard(){document.getElementById("countLeads").textContent=data.leads.length;document.getElementById("countClients").textContent=data.clients.length;document.getElementById("countProjects").textContent=data.projects.length}
+function imageFor(category,index){
+  const c=String(category||"").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"");
+  const sets=[
+   {keys:["pet","pet shop","petshop","veterin","veterinária","veterinaria","banho e tosa","ração","racao","cães","caes","gatos"],imgs:["photo-1543466835-00a7907e9de1","photo-1516734212186-a967f81ad0d7","photo-1514888286974-6c03e2ca1dba"]},
+   {keys:["barbear","barber"],imgs:["photo-1503951914875-452162b0f3f1","photo-1621605815971-fbc98d665033","photo-1599351431202-1e0f0137899a"]},
+   {keys:["beleza","salao","cabelo","estetica","unha","spa","manicure","design de sobrancelha"],imgs:["photo-1560066984-138dadb4c035","photo-1522337360788-8b13dee7a37e","photo-1516975080664-ed2fc6a32937"]},
+   {keys:["oficina","auto","mecan","carro","moto","funilaria","borracharia"],imgs:["photo-1486262715619-67b85e0b08d3","photo-1492144534655-ae79c964c9d7","photo-1503376780353-7e6692767b70"]},
+   {keys:["restaurante","pizza","comida","hamburg","café","cafe","bar"],imgs:["photo-1517248135467-4c7edcad34c4","photo-1513104890138-7c749659a591","photo-1555939594-58d7cb561ad1"]},
+   {keys:["roupa","moda","loja","fashion","acessório","acessorio"],imgs:["photo-1483985988355-763728e1935b","photo-1441986300917-64674bd600d8","photo-1490481651871-ab68de25d43d"]},
+   {keys:["clinica","dent","medic","saude","odont"],imgs:["photo-1629909613654-28e377c37b09","photo-1588776814546-1ffcf47267a5","photo-1576091160399-112ba8d25d1d"]},
+   {keys:["academia","fitness","personal","treino"],imgs:["photo-1534438327276-14e5300c3a48","photo-1517836357463-d25dfeac3438","photo-1534258936925-c58bed479fcb"]},
+   {keys:["imobili","corret","casa"],imgs:["photo-1600596542815-ffad4c1539a9","photo-1600607687939-ce8a6c25118c","photo-1600566753086-00f18fb6b3ea"]},
+   {keys:["fotóg","fotog","foto","event"],imgs:["photo-1492691527719-9d1e07e534b4","photo-1516035069371-29a1b244cc32","photo-1452587925148-ce544e77e70d"]},
+   {keys:["advoc","jurid"],imgs:["photo-1589829545856-d10d557cf95f","photo-1505664194779-8beaceb93744","photo-1450101499163-c8848c66ca85"]},
+   {keys:["joalher","joia","relogio"],imgs:["photo-1515562141207-7a88fb7ce338","photo-1617038220319-276d3cfab638","photo-1605100804763-247f67b3557e"]}
+  ];
+  const fallback=["photo-1497366754035-f200968a6e72","photo-1497366811353-6870744d04b2","photo-1497366216548-37526070297c"];
+  const found=sets.find(s=>s.keys.some(k=>c.includes(k)));
+  const arr=found?found.imgs:fallback;
+  const id=arr[((Number(index)||0)%arr.length)];
+  return "https://images.unsplash.com/"+id+"?auto=format&fit=crop&crop=entropy&w=1800&h=1100&q=88";
+}
+function refreshAutoImages(){
+  const category=document.getElementById("siteCategory").value.trim();
+  [0,1,2].forEach(i=>{
+    const url=imageFor(category,i);
+    const hidden=document.getElementById(["siteHeroImage","siteImage2","siteImage3"][i]);
+    const preview=document.getElementById("autoPreview"+(i+1));
+    if(hidden)hidden.value=url;
+    if(preview){
+      preview.onerror=()=>{preview.onerror=null;preview.src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1200&h=700&q=80"};
+      preview.src=url;
+    }
+  });
+}
+function validImage(url){return /^https?:\/\/[^\s"'<>]+$/i.test(url||"")}
+function generateSite(){
+ const val=id=>document.getElementById(id).value.trim();
+ const name=val("siteName"),category=val("siteCategory"),description=val("siteDescription"),address=val("siteAddress"),phoneRaw=val("sitePhone"),instagram=val("siteInstagram"),email=val("siteEmail"),hours=val("siteHours"),servicesRaw=val("siteServices"),style=val("siteStyle"),color=val("siteColor"),secondary=val("siteColorSecondary"),buttonText=val("siteButton")||"Fale conosco";
+ if(!name||!category||!description){alert("Preencha o nome, o ramo e a descrição da empresa.");return}
+ let phone=phoneRaw.replace(/\D/g,"");if(phone&&phone.length>=10&&!phone.startsWith("55"))phone="55"+phone;
+ const whatsapp=phone.length>=12?"https://wa.me/"+phone:"#contato";
+ const services=servicesRaw.split(/[,;\n]/).map(x=>x.trim()).filter(Boolean).slice(0,12);
+ const serviceList=services.length?services:["Atendimento personalizado","Qualidade em cada detalhe","Soluções sob medida"];
+ refreshAutoImages();
+ const hero=val("siteHeroImage")||imageFor(category,0),img2=val("siteImage2")||imageFor(category,1),img3=val("siteImage3")||imageFor(category,2);
+ const norm=category.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"");
+ let segment="editorial";
+ if(/oficina|mecan|auto|carro|moto|funilaria/.test(norm))segment="auto";
+ else if(/salao|beleza|estetica|manicure|cabelo/.test(norm))segment="beauty";
+ else if(/barbear/.test(norm))segment="barber";
+ else if(/restaurante|cafe|cafeteria|pizza|hamburg|comida/.test(norm))segment="food";
+ else if(/pet|veterin/.test(norm))segment="pet";
+ else if(/dent|odont|clinica|medic|saude/.test(norm))segment="clinic";
+ else if(/academia|fitness|personal/.test(norm))segment="fitness";
+ else if(/joalher|joia/.test(norm))segment="jewel";
+ else if(/roupa|moda|loja/.test(norm))segment="retail";
+ const themes={
+  auto:{bg:"#101214",surface:"#191d20",text:"#f5f3ed",muted:"#b5b8b7",accent:color||"#e46b2e",secondary:secondary||"#343b40",font:"'Barlow Condensed',Arial,sans-serif",eyebrow:"ENGENHARIA • CUIDADO • PERFORMANCE",headline:"Seu carro merece cuidado de verdade.",about:"Precisão técnica. Atendimento transparente.",cta:"Agende uma avaliação",layout:"split"},
+  beauty:{bg:"#f7f1eb",surface:"#fffaf5",text:"#332722",muted:"#796a62",accent:color||"#b77e72",secondary:secondary||"#e8d8cc",font:"'Cormorant Garamond',Georgia,serif",eyebrow:"BELEZA • AUTOCUIDADO • BEM-ESTAR",headline:"Um tempo só seu. Uma beleza que é sua.",about:"Seu ritual de cuidado começa aqui.",cta:"Agende seu horário",layout:"editorial"},
+  barber:{bg:"#151515",surface:"#202020",text:"#f6f0e7",muted:"#b9b1a6",accent:color||"#c69a55",secondary:secondary||"#303030",font:"'Barlow Condensed',Arial,sans-serif",eyebrow:"BARBEARIA • ESTILO • IDENTIDADE",headline:"Presença começa no detalhe.",about:"Tradição no corte. Atitude no resultado.",cta:"Marque seu corte",layout:"split"},
+  food:{bg:"#201512",surface:"#2b1d19",text:"#fff6ec",muted:"#d0bdb0",accent:color||"#d49a57",secondary:secondary||"#4b2922",font:"'Playfair Display',Georgia,serif",eyebrow:"COZINHA • EXPERIÊNCIA • SABOR",headline:"Feito com cuidado. Servido para ficar na memória.",about:"Uma mesa cheia de bons momentos.",cta:"Faça seu pedido",layout:"food"},
+  pet:{bg:"#f2f5ef",surface:"#ffffff",text:"#20352e",muted:"#62766d",accent:color||"#39866e",secondary:secondary||"#d8e8dc",font:"'DM Sans',Arial,sans-serif",eyebrow:"CUIDADO • CARINHO • CONFIANÇA",headline:"Quem faz parte da família merece o melhor.",about:"Cuidado gentil em cada etapa.",cta:"Fale com nossa equipe",layout:"editorial"},
+  clinic:{bg:"#f3f7f8",surface:"#ffffff",text:"#18313b",muted:"#627982",accent:color||"#2b8491",secondary:secondary||"#dcebed",font:"'DM Sans',Arial,sans-serif",eyebrow:"SAÚDE • PREVENÇÃO • ACOLHIMENTO",headline:"Cuidar de você é o que nos move.",about:"Excelência técnica com atenção humana.",cta:"Agende sua consulta",layout:"clinic"},
+  fitness:{bg:"#111815",surface:"#1b2620",text:"#f4f7f0",muted:"#b6c2b8",accent:color||"#b5d34b",secondary:secondary||"#293b2c",font:"'Barlow Condensed',Arial,sans-serif",eyebrow:"MOVIMENTO • FORÇA • EVOLUÇÃO",headline:"Sua próxima versão começa agora.",about:"Treino com propósito. Evolução de verdade.",cta:"Conheça a academia",layout:"split"},
+  jewel:{bg:"#171513",surface:"#211e1a",text:"#f7f0e5",muted:"#c8bba8",accent:color||"#c6a36b",secondary:secondary||"#383027",font:"'Cormorant Garamond',Georgia,serif",eyebrow:"JOIAS • DESIGN • ELEGÂNCIA",headline:"Peças para marcar momentos únicos.",about:"O brilho está nos detalhes.",cta:"Conheça a coleção",layout:"editorial"},
+  retail:{bg:"#f5f3ef",surface:"#ffffff",text:"#242321",muted:"#77736d",accent:color||"#9b634b",secondary:secondary||"#e5ddd4",font:"'DM Sans',Arial,sans-serif",eyebrow:"CURADORIA • ESTILO • NOVIDADES",headline:"Seu estilo, do seu jeito.",about:"Escolhas que combinam com você.",cta:"Ver novidades",layout:"editorial"},
+  editorial:{bg:"#17191d",surface:"#22262c",text:"#f5f3ef",muted:"#b9bdc3",accent:color||"#c59b5a",secondary:secondary||"#343a43",font:"'DM Sans',Arial,sans-serif",eyebrow:"EXPERIÊNCIA • QUALIDADE • CONFIANÇA",headline:"Feito com intenção. Entregue com excelência.",about:"Um jeito melhor de fazer acontecer.",cta:"Converse com a equipe",layout:"editorial"}
+ };
+ const t={...themes[segment]};
+ if(style==="minimal"){t.bg="#f7f6f2";t.surface="#ffffff";t.text="#252722";t.muted="#687067";t.secondary=secondary||"#e7e8e1"}
+ if(style==="luxury"){t.bg="#171411";t.surface="#211d18";t.text="#f6efe3";t.muted="#c8bcaa"}
+ if(style==="bold"){t.bg="#101010";t.surface="#202020";t.text="#ffffff";t.muted="#c8c8c8"}
+ t.accent=color||t.accent;
+ const safeName=safe(name),safeCategory=safe(category),safeDesc=safe(description),safeAddress=safe(address),safePhone=safe(phoneRaw),safeHours=safe(hours),safeEmail=safe(email);
+ const insta=instagram?(instagram.startsWith("http")?instagram:"https://instagram.com/"+instagram.replace(/^@/,"")):"";
+ const cards=serviceList.map((item,i)=>`<article class="service-card"><span class="num">0${i+1}</span><h3>${safe(item)}</h3><p>Um serviço realizado com atenção, qualidade e compromisso em cada detalhe.</p></article>`).join("");
+ const gallery=[img2,img3].map((src,i)=>`<figure class="gallery-card"><img src="${safe(src)}" alt="${safeCategory}" loading="lazy"><figcaption>${i===0?"Nosso ambiente":"Nosso cuidado em cada detalhe"}</figcaption></figure>`).join("");
+ const split=segment==="auto"||segment==="barber"||segment==="fitness";
+ const heroImage=`<div class="hero-photo"><img src="${safe(hero)}" alt="${safeCategory}" fetchpriority="high"></div>`;
+ generatedHTML=`<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="${safe(description.slice(0,155))}"><meta name="theme-color" content="${t.bg}"><title>${safeName} | ${safeCategory}</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800&family=Cormorant+Garamond:wght@500;600;700&family=DM+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet"><style>
+:root{--bg:${t.bg};--surface:${t.surface};--ink:${t.text};--muted:${t.muted};--accent:${t.accent};--secondary:${t.secondary};--font:${t.font};--line:color-mix(in srgb,var(--ink) 14%,transparent)}*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:90px}body{margin:0;background:var(--bg);color:var(--ink);font-family:'DM Sans',Arial,sans-serif;line-height:1.6}a{color:inherit;text-decoration:none}.wrap{width:min(1200px,88%);margin:auto}.topbar{height:82px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:10;background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(16px)}.brand{font-size:19px;font-weight:800;letter-spacing:-.04em}.brand i{color:var(--accent);font-style:normal}.nav{display:flex;gap:28px;color:var(--muted);font-size:12px;font-weight:700}.nav a:hover{color:var(--accent)}.pill{display:inline-flex;padding:13px 19px;background:var(--accent);color:#171512;border-radius:3px;font-size:12px;font-weight:800;letter-spacing:.04em;transition:.25s}.pill:hover{transform:translateY(-3px);filter:brightness(1.08)}.menu{display:none;background:transparent;border:1px solid var(--line);color:var(--ink);padding:8px 12px}.hero{min-height:690px;position:relative;overflow:hidden;display:flex;align-items:center}.hero:before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,var(--bg) 0%,color-mix(in srgb,var(--bg) 88%,transparent) 44%,transparent 100%);z-index:1}.hero-photo{position:absolute;inset:0 0 0 32%;opacity:.76}.hero-photo img{width:100%;height:100%;object-fit:cover}.hero-content{position:relative;z-index:2;padding:105px 0;max-width:740px}.eyebrow{font-size:10px;letter-spacing:.24em;color:var(--accent);font-weight:800}.hero h1{font-family:${t.font};font-size:clamp(52px,8vw,104px);line-height:.98;letter-spacing:-.045em;margin:24px 0;max-width:850px;font-weight:700}.hero p{font-size:16px;line-height:1.9;color:var(--muted);max-width:590px}.hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:30px}.ghost{padding:12px 18px;border:1px solid var(--line);font-size:12px;font-weight:700}.hero-meta{margin-top:60px;color:var(--muted);font-size:10px;letter-spacing:.16em;text-transform:uppercase}.section{padding:105px 0}.kicker{font-size:10px;color:var(--accent);font-weight:800;letter-spacing:.22em;text-transform:uppercase}.heading{font-family:${t.font};font-size:clamp(38px,5vw,66px);line-height:1.04;letter-spacing:-.035em;margin:17px 0 20px;max-width:760px}.intro{color:var(--muted);max-width:650px;line-height:1.9}.about{display:grid;grid-template-columns:1fr .92fr;gap:8%;align-items:center}.about-image{height:480px;position:relative}.about-image img{width:100%;height:100%;object-fit:cover}.about-note{position:absolute;bottom:-18px;left:-18px;background:var(--secondary);padding:18px 22px;font-size:11px;font-weight:800;letter-spacing:.08em}.services{background:var(--surface)}.service-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin-top:45px}.service-card{background:var(--surface);padding:30px;min-height:205px}.num{color:var(--accent);font-size:11px;font-weight:800;letter-spacing:.18em}.service-card h3{font-family:${t.font};font-size:25px;margin:20px 0 10px}.service-card p{font-size:12px;color:var(--muted);line-height:1.8}.statement{padding:90px 0;text-align:center}.statement blockquote{font-family:${t.font};font-size:clamp(28px,4vw,48px);line-height:1.18;max-width:850px;margin:20px auto}.gallery{display:grid;grid-template-columns:1.15fr .85fr;gap:18px;margin-top:38px}.gallery-card{margin:0;position:relative;height:390px;overflow:hidden}.gallery-card img{width:100%;height:100%;object-fit:cover;transition:transform .7s}.gallery-card:hover img{transform:scale(1.04)}.gallery-card figcaption{position:absolute;bottom:0;left:0;right:0;padding:32px 22px 18px;color:#fff;background:linear-gradient(transparent,#0009);font-size:12px;font-weight:700}.contact{background:var(--surface);border-block:1px solid var(--line)}.contact-grid{display:grid;grid-template-columns:1fr .8fr;gap:8%;align-items:center}.contact-box{padding:28px;background:var(--bg);border:1px solid var(--line)}.contact-row{padding:13px 0;border-bottom:1px solid var(--line);font-size:13px;color:var(--muted);overflow-wrap:anywhere}.contact-row:last-child{border:0}.contact-row b{display:block;color:var(--ink);font-size:10px;letter-spacing:.13em;text-transform:uppercase;margin-bottom:4px}.footer{padding:30px 0;color:var(--muted);font-size:11px}.footer-inner{display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap}.reveal{opacity:0;transform:translateY(18px);transition:.7s}.reveal.on{opacity:1;transform:none}
+${split?`.hero-photo{left:38%;opacity:.9}.hero:before{background:linear-gradient(90deg,var(--bg) 0%,var(--bg) 36%,transparent 100%)}.hero-content{max-width:690px}.hero h1{max-width:640px}`:""}
+${segment==="food"?`.hero{min-height:760px}.hero-photo{inset:0;opacity:.55}.hero:before{background:linear-gradient(90deg,#160e0cdd,#160e0c66 65%,#160e0c22)}.hero-content{max-width:780px}.service-grid{grid-template-columns:repeat(2,1fr)}`:""}
+${segment==="clinic"?`.hero{min-height:620px}.hero-photo{left:45%;border-radius:0 0 0 100px;overflow:hidden}.hero:before{background:linear-gradient(90deg,var(--bg) 0%,var(--bg) 40%,transparent 100%)}.pill{border-radius:30px}`:""}
+@media(max-width:760px){.topbar{height:70px}.menu{display:block}.nav{display:none;position:absolute;top:69px;left:0;right:0;padding:20px 6%;background:var(--bg);flex-direction:column;border-bottom:1px solid var(--line)}.nav.open{display:flex}.top-cta{display:none}.hero{min-height:650px}.hero-photo{inset:0;opacity:.45}.hero:before{background:linear-gradient(90deg,color-mix(in srgb,var(--bg) 92%,transparent),color-mix(in srgb,var(--bg) 50%,transparent))}.hero-content{padding:90px 0}.hero h1{font-size:clamp(49px,13vw,76px)}.section{padding:72px 0}.about,.contact-grid{grid-template-columns:1fr;gap:40px}.about-image{height:330px;margin:0 10px 12px}.service-grid{grid-template-columns:1fr}.gallery{grid-template-columns:1fr}.gallery-card{height:290px}.statement{padding:65px 0}}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}.reveal{opacity:1;transform:none}}
+</style></head><body>
+<header class="topbar"><div class="wrap" style="display:flex;align-items:center;justify-content:space-between;width:100%;gap:16px"><a class="brand" href="#inicio">${safeName}<i> ●</i></a><button class="menu" id="menu">☰</button><nav class="nav" id="nav"><a href="#inicio">Início</a><a href="#sobre">Sobre</a><a href="#servicos">Serviços</a><a href="#galeria">Galeria</a><a href="#contato">Contato</a></nav><a class="pill top-cta" href="${whatsapp}">${safe(buttonText)} ↗</a></div></header>
+<main><section class="hero" id="inicio">${heroImage}<div class="wrap"><div class="hero-content"><div class="eyebrow">${safe(t.eyebrow)} · ${safeCategory.toUpperCase()}</div><h1>${safe(t.headline)}</h1><p>${safeDesc}</p><div class="hero-actions"><a class="pill" href="${whatsapp}">${safe(buttonText)} ↗</a><a class="ghost" href="#servicos">Conheça nossos serviços</a></div><div class="hero-meta">Atendimento com qualidade e confiança</div></div></div></section>
+<section class="section" id="sobre"><div class="wrap about"><div><div class="kicker">Nossa essência</div><h2 class="heading">${safe(t.about)}</h2><p class="intro">${safeDesc}</p>${address?`<p class="intro" style="margin-top:18px"><b>Onde estamos:</b> ${safeAddress}</p>`:""}<a class="pill" style="margin-top:26px" href="${whatsapp}">${safe(t.cta)} ↗</a></div><div class="about-image"><img src="${safe(img2)}" alt="${safeCategory}" loading="lazy"><div class="about-note">${safeName} · ${safeCategory}</div></div></div></section>
+<section class="section services" id="servicos"><div class="wrap"><div class="kicker">O que fazemos</div><h2 class="heading">Serviços pensados para você.</h2><p class="intro">Conheça algumas das soluções que preparamos com atenção e dedicação.</p><div class="service-grid">${cards}</div></div></section>
+<section class="statement"><div class="wrap"><div class="kicker">Nosso compromisso</div><blockquote>“Qualidade não é detalhe. É o jeito como fazemos cada coisa.”</blockquote><div class="intro" style="margin:auto">${safeName} · ${safeCategory}</div></div></section>
+<section class="section" id="galeria"><div class="wrap"><div class="kicker">Galeria</div><h2 class="heading">Um olhar sobre nosso universo.</h2><p class="intro">Imagens ilustrativas selecionadas para representar o segmento da empresa.</p><div class="gallery">${gallery}</div></div></section>
+<section class="section contact" id="contato"><div class="wrap contact-grid"><div><div class="kicker">Vamos conversar?</div><h2 class="heading">Estamos prontos para atender você.</h2><p class="intro">Entre em contato para tirar dúvidas, solicitar informações ou agendar seu atendimento.</p><a class="pill" style="margin-top:25px" href="${whatsapp}">${safe(buttonText)} ↗</a></div><div class="contact-box"><div class="contact-row"><b>WhatsApp</b>${phone?safePhone:"Entre em contato pelo botão ao lado"}</div>${address?`<div class="contact-row"><b>Endereço</b>${safeAddress}</div>`:""}${hours?`<div class="contact-row"><b>Horário</b>${safeHours}</div>`:""}${email?`<div class="contact-row"><b>E-mail</b><a href="mailto:${safeEmail}">${safeEmail}</a></div>`:""}${insta?`<div class="contact-row"><b>Instagram</b><a href="${safe(insta)}" target="_blank" rel="noopener">${safe(instagram)}</a></div>`:""}</div></div></section></main>
+<footer class="footer"><div class="wrap footer-inner"><b>${safeName}</b><span>© ${new Date().getFullYear()} Todos os direitos reservados.</span><a href="#inicio">Voltar ao topo ↑</a></div></footer>
+<script>const m=document.getElementById('menu'),n=document.getElementById('nav');m.addEventListener('click',()=>n.classList.toggle('open'));n.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>n.classList.remove('open')));if('IntersectionObserver'in window){const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('on');io.unobserve(e.target)}}),{threshold:.12});document.querySelectorAll('.section,.service-card,.gallery-card,.statement').forEach(x=>{x.classList.add('reveal');io.observe(x)})}else{document.querySelectorAll('.reveal').forEach(x=>x.classList.add('on'))}<\/script></body></html>`;
+ document.getElementById("preview").srcdoc=generatedHTML;
+ document.getElementById("siteMessage").textContent="Site gerado com identidade visual específica para: "+category+". As fotos são ilustrativas e escolhidas pelo segmento.";
+ document.getElementById("factoryStatus").textContent="Prévia atualizada. Você pode editar os dados e gerar novamente.";
+}
+function copySite(){if(!generatedHTML){alert("Gere um site primeiro.");return}const area=document.createElement("textarea");area.value=generatedHTML;document.body.appendChild(area);area.select();try{document.execCommand("copy");alert("Código HTML copiado!")}catch(e){alert("Não foi possível copiar. Baixe o arquivo HTML.")}area.remove()}
+function downloadSite(){if(!generatedHTML){alert("Gere um site primeiro.");return}const blob=new Blob([generatedHTML],{type:"text/html;charset=utf-8"});const url=URL.createObjectURL(blob);const a=document.createElement("a");a.href=url;a.download="site-"+(document.getElementById("siteName").value.trim().toLowerCase().replace(/[^a-z0-9]+/g,"-")||"profissional")+".html";document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1500)}
+function openPreview(){if(!generatedHTML){alert("Gere um site primeiro.");return}const w=window.open("","_blank");if(!w){alert("Permita pop-ups para abrir a prévia.");return}w.document.open();w.document.write(generatedHTML);w.document.close()}
+function clearSiteForm(){["siteName","siteDescription","siteAddress","sitePhone","siteInstagram","siteEmail","siteHours","siteServices","siteHeroImage","siteImage2","siteImage3"].forEach(id=>document.getElementById(id).value="");document.getElementById("siteCategory").value="Oficina mecânica";refreshAutoImages();document.getElementById("siteStyle").value="modern";document.getElementById("siteColor").value="#b68a45";document.getElementById("siteColorSecondary").value="#263b50";document.getElementById("siteButton").value="Fale conosco pelo WhatsApp";generatedHTML="";document.getElementById("preview").srcdoc="";document.getElementById("siteMessage").textContent="Formulário limpo."}
+let customColors=false;
+document.getElementById("siteColor").addEventListener("input",()=>customColors=true);
+document.getElementById("siteColorSecondary").addEventListener("input",()=>customColors=true);
+function applyCategoryDefaults(){
+ const c=document.getElementById("siteCategory").value.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"");
+ const palettes=[[/oficina|mecan|auto|carro|moto/,"#e46b2e","#343b40"],[/salao|beleza|estetica|manicure/,"#b77e72","#e8d8cc"],[/barbear/,"#c69a55","#303030"],[/restaurante|cafe|cafeteria|pizza|hamburg/,"#d49a57","#4b2922"],[/pet|veterin/,"#39866e","#d8e8dc"],[/dent|odont|clinica|medic|saude/,"#2b8491","#dcebed"],[/academia|fitness|personal/,"#b5d34b","#293b2c"],[/joalher|joia/,"#c6a36b","#383027"],[/roupa|moda|loja/,"#9b634b","#e5ddd4"]];
+ if(!customColors){const match=palettes.find(x=>x[0].test(c));document.getElementById("siteColor").value=match?match[1]:"#c59b5a";document.getElementById("siteColorSecondary").value=match?match[2]:"#343a43";}
+}
+document.getElementById("siteCategory").addEventListener("change",()=>{applyCategoryDefaults();refreshAutoImages()});applyCategoryDefaults();refreshAutoImages();
+document.getElementById("today").textContent=new Date().toLocaleDateString("pt-BR");renderLists();updateDashboard();
+</script>
+</body></html>
