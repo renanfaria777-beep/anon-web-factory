@@ -1,219 +1,422 @@
-<!doctype html>
+
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#101010">
 <title>ANON WEB FACTORY</title>
 <style>
-:root{--bg:#0b0c0e;--panel:#15171a;--panel2:#1d2024;--line:#2a2d32;--gold:#d8ad55;--gold2:#f0cf83;--text:#f5f2eb;--muted:#a6a7aa;--green:#65c18c;--red:#e47d7d}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:15px/1.45 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
-button,input,select,textarea{font:inherit}button{cursor:pointer}
-.app{max-width:1180px;margin:auto;padding:16px 14px 90px}
-header{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 2px 18px}
-.brand{display:flex;align-items:center;gap:11px}.logo{width:42px;height:42px;border-radius:13px;background:linear-gradient(145deg,#f1d28b,#a8792e);display:grid;place-items:center;color:#17130c;font-weight:900;font-size:19px;box-shadow:0 5px 22px #d8ad5528}
-.brand h1{font-size:15px;letter-spacing:1.4px;margin:0}.brand small{color:var(--muted);font-size:10px;letter-spacing:2px}
-.pill{border:1px solid #3a3427;background:#211d15;color:var(--gold2);border-radius:999px;padding:6px 10px;font-size:11px}
-h2{font-size:23px;margin:8px 0 4px}h3{font-size:15px;margin:0 0 12px}.sub{color:var(--muted);margin:0 0 20px;font-size:13px}
-.nav{display:flex;gap:7px;overflow:auto;padding:4px 0 14px;scrollbar-width:none}.nav button{white-space:nowrap;border:1px solid var(--line);background:var(--panel);color:var(--muted);padding:10px 13px;border-radius:11px;font-size:12px}.nav button.active{background:#302719;border-color:#80622f;color:var(--gold2)}
-.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:11px}.stat,.card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:15px}.stat .label{font-size:11px;color:var(--muted)}.stat strong{display:block;font-size:25px;margin-top:7px;color:var(--gold2)}
-.card{margin-top:14px}.card-head{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:12px}
-.btn{border:1px solid #8a682e;background:linear-gradient(135deg,#e1bd70,#b9893d);color:#17130c;border-radius:10px;padding:10px 13px;font-weight:750;font-size:12px}.btn.secondary{background:var(--panel2);border-color:var(--line);color:var(--text)}.btn.danger{background:#321e20;border-color:#66383b;color:#f1aaaa}.btn.small{padding:7px 9px;font-size:11px}
-.actions{display:flex;gap:7px;flex-wrap:wrap}.field{display:flex;flex-direction:column;gap:6px;margin:10px 0}.field label{font-size:12px;color:var(--muted)}input,select,textarea{width:100%;background:#0e1012;border:1px solid var(--line);border-radius:10px;color:var(--text);padding:11px 12px;outline:none}input:focus,select:focus,textarea:focus{border-color:#a98242}textarea{min-height:100px;resize:vertical}
-.formgrid{display:grid;grid-template-columns:1fr 1fr;gap:0 12px}.full{grid-column:1/-1}
-.list{display:grid;gap:9px}.item{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;background:#101214;border:1px solid var(--line);border-radius:12px;padding:12px}.item-main{min-width:0}.item strong{display:block;font-size:13px}.item small{color:var(--muted);display:block;margin-top:3px;overflow-wrap:anywhere}.item-actions{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}.tag{display:inline-block;border:1px solid #51432a;background:#211d15;color:var(--gold2);padding:3px 7px;border-radius:99px;font-size:10px;margin-top:6px}
-.empty{color:var(--muted);text-align:center;padding:25px 10px;font-size:13px}.hidden{display:none!important}.search{margin-bottom:10px}
-footer{color:#777;text-align:center;font-size:10px;padding:25px 0}
-.modal{position:fixed;inset:0;background:#000b;display:none;align-items:flex-end;justify-content:center;padding:12px;z-index:5}.modal.open{display:flex}.modalbox{width:min(620px,100%);max-height:92vh;overflow:auto;background:#17191c;border:1px solid #464039;border-radius:18px;padding:17px;box-shadow:0 15px 60px #000}.modalhead{display:flex;justify-content:space-between;align-items:center}
-.notice{border:1px solid #574727;background:#211d15;color:#e8d4a8;padding:11px 12px;border-radius:12px;font-size:12px;margin-top:12px}
-.bottom{position:fixed;bottom:0;left:0;right:0;background:#101113ed;backdrop-filter:blur(12px);border-top:1px solid var(--line);padding:9px 14px calc(9px + env(safe-area-inset-bottom));display:flex;justify-content:center;z-index:3}.bottom span{color:var(--muted);font-size:11px}
-@media(max-width:650px){.grid{grid-template-columns:repeat(2,1fr)}.formgrid{grid-template-columns:1fr}.full{grid-column:auto}.app{padding-left:12px;padding-right:12px}.item{flex-direction:column}.item-actions{justify-content:flex-start}.brand h1{font-size:13px}}
+:root{--bg:#101010;--panel:#191919;--gold:#d6ad55;--text:#f5f5f5;--muted:#999;--line:#303030}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:Arial,sans-serif}
+header{padding:20px;background:#151515;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.logo{font-size:21px;font-weight:900;letter-spacing:1px}.logo span{color:var(--gold)}
+header small{color:var(--muted)}
+nav{display:flex;gap:7px;padding:12px;overflow-x:auto;background:#141414;border-bottom:1px solid var(--line)}
+nav button{white-space:nowrap;background:#222;color:#ddd;border:1px solid #333;padding:11px 14px;border-radius:8px;cursor:pointer}
+nav button.active,button.primary{background:var(--gold);color:#111;border-color:var(--gold);font-weight:bold}
+main{max-width:1200px;margin:auto;padding:18px}
+section.page{display:none}section.page.active{display:block}
+h1{font-size:25px;margin:10px 0 5px}h2{font-size:19px}
+.subtitle{color:var(--muted);margin-bottom:22px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:18px;margin-bottom:14px}
+.stat{font-size:30px;color:var(--gold);font-weight:bold;margin-top:10px}
+label{display:block;font-size:13px;color:#ccc;margin:13px 0 6px}
+input,textarea,select{width:100%;padding:12px;background:#101010;border:1px solid #393939;color:white;border-radius:8px;font:inherit}
+textarea{min-height:90px;resize:vertical}
+button{padding:11px 15px;border:1px solid #444;border-radius:8px;background:#252525;color:white;cursor:pointer;font-weight:bold}
+button:hover{filter:brightness(1.15)}
+.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+.item{padding:13px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;gap:10px;align-items:center}
+.item:last-child{border:0}
+.muted{color:var(--muted);font-size:13px}
+#preview{width:100%;height:650px;border:1px solid #444;border-radius:10px;background:white}
+.notice{background:#292317;border:1px solid #66532b;color:#f2d99f;padding:12px;border-radius:8px;font-size:13px;margin:12px 0}
+footer{text-align:center;color:#666;padding:25px;font-size:12px}
+@media(max-width:600px){header{align-items:flex-start}main{padding:12px}.card{padding:14px}#preview{height:520px}}
 </style>
 </head>
 <body>
-<div class="app">
-<header><div class="brand"><div class="logo">A</div><div><h1>ANON WEB FACTORY</h1><small>PAINEL DE OPERAÇÕES</small></div></div><span class="pill">● VERSÃO 2.0</span></header>
-<nav class="nav" id="nav">
-<button class="active" data-tab="home">Visão geral</button><button data-tab="leads">Prospecção</button><button data-tab="clients">Clientes</button><button data-tab="projects">Projetos</button><button data-tab="studio">Criador de sites</button><button data-tab="templates">Modelos</button><button data-tab="reports">Relatórios</button><button data-tab="finance">Financeiro</button><button data-tab="backup">Backup</button>
+
+<header>
+  <div>
+    <div class="logo">ANON <span>WEB FACTORY</span></div>
+    <small>Seu centro de criação e gestão digital</small>
+  </div>
+  <small id="today"></small>
+</header>
+
+<nav>
+  <button class="active" data-page="home">Visão geral</button>
+  <button data-page="leads">Prospecção</button>
+  <button data-page="clients">Clientes</button>
+  <button data-page="projects">Projetos</button>
+  <button data-page="studio">Criador de sites</button>
 </nav>
+
 <main>
-<section id="home" class="page">
-<h2>Visão geral</h2><p class="sub">Bem-vindo à sua central de criação de sites.</p>
-<div class="grid">
-<div class="stat"><span class="label">Empresas</span><strong id="sLeads">0</strong></div>
-<div class="stat"><span class="label">Interessados</span><strong id="sInterested">0</strong></div>
-<div class="stat"><span class="label">Projetos ativos</span><strong id="sProjects">0</strong></div>
-<div class="stat"><span class="label">Vendas registradas</span><strong id="sSales">R$ 0</strong></div>
-</div>
-<div class="card"><div class="card-head"><h3>Atalhos rápidos</h3></div><div class="actions"><button class="btn" onclick="openLead()">+ Nova empresa</button><button class="btn secondary" onclick="openProject()">+ Novo projeto</button><button class="btn secondary" onclick="go('backup')">Fazer backup</button></div></div>
-<div class="card"><h3>Últimas empresas cadastradas</h3><div id="recent" class="list"></div></div>
-<div class="notice">Seus dados ficam salvos neste navegador. Use a área Backup para exportar uma cópia antes de limpar os dados do aparelho ou trocar de navegador.</div>
+
+<section id="home" class="page active">
+  <h1>Visão geral</h1>
+  <p class="subtitle">Bem-vindo à sua central de negócios.</p>
+  <div class="grid">
+    <div class="card">Empresas prospectadas<div class="stat" id="countLeads">0</div></div>
+    <div class="card">Clientes cadastrados<div class="stat" id="countClients">0</div></div>
+    <div class="card">Projetos registrados<div class="stat" id="countProjects">0</div></div>
+  </div>
+  <div class="card">
+    <h2>Comece por aqui</h2>
+    <p class="muted">Cadastre empresas, acompanhe clientes e crie sites profissionais para apresentar seus projetos.</p>
+    <div class="actions">
+      <button class="primary" onclick="showPage('studio')">Criar um site</button>
+      <button onclick="showPage('leads')">Adicionar empresa</button>
+    </div>
+  </div>
 </section>
-<section id="leads" class="page hidden">
-<h2>Prospecção</h2><p class="sub">Organize empresas e prepare abordagens individuais.</p>
-<div class="actions"><button class="btn" onclick="openLead()">+ Cadastrar empresa</button></div>
-<div class="card"><input class="search" id="leadSearch" placeholder="Buscar por empresa, cidade ou contato..." oninput="renderLeads()"><div id="leadList" class="list"></div></div>
-<div class="card"><h3>Gerador de mensagem</h3>
-<div class="field"><label>Nome da empresa</label><input id="msgName" placeholder="Ex.: Studio Fábio Alvarenga"></div>
-<div class="field"><label>Seu nome</label><input id="myName" value="Renan"></div>
-<div class="field"><label>Tipo de negócio</label><input id="msgType" placeholder="Ex.: academia, restaurante, salão"></div>
-<div class="field"><label>Mensagem personalizada</label><textarea id="msgText">Olá, boa tarde! Tudo bem?
 
-É da equipe da [EMPRESA]?
-
-Meu nome é [SEU NOME], trabalho com criação de sites profissionais e ajudo empresas a fortalecerem sua presença na internet, apresentando seus serviços de forma profissional.
-
-Gostaria de saber se vocês teriam interesse em conhecer uma demonstração de como poderia ser um site exclusivo para a empresa.
-
-Posso enviar uma prévia sem compromisso?
-
-Agradeço pela atenção!</textarea></div>
-<div class="actions"><button class="btn" onclick="generateMessage()">Personalizar mensagem</button><button class="btn secondary" onclick="copyMessage()">Copiar mensagem</button></div>
-<p class="sub" style="margin:10px 0 0">Envie somente abordagens apropriadas e respeite pedidos para não receber novas mensagens. Não use disparos em massa.</p>
-</div>
+<section id="leads" class="page">
+  <h1>Prospecção</h1>
+  <p class="subtitle">Organize empresas que podem precisar de um site.</p>
+  <div class="card">
+    <h2>Nova empresa</h2>
+    <label>Nome da empresa</label>
+    <input id="leadName" placeholder="Ex.: Studio Beleza">
+    <label>WhatsApp</label>
+    <input id="leadPhone" placeholder="Ex.: 5512999999999">
+    <label>Observações</label>
+    <textarea id="leadNote" placeholder="Informações sobre a empresa"></textarea>
+    <button class="primary" onclick="addLead()">Salvar empresa</button>
+  </div>
+  <div class="card"><h2>Empresas cadastradas</h2><div id="leadList"></div></div>
 </section>
-<section id="clients" class="page hidden"><h2>Clientes</h2><p class="sub">Acompanhe quem já virou cliente.</p><div class="card"><div class="actions"><button class="btn" onclick="openClient()">+ Novo cliente</button></div><div id="clientList" class="list" style="margin-top:12px"></div></div></section>
-<section id="projects" class="page hidden"><h2>Projetos</h2><p class="sub">Controle a produção e entrega dos sites.</p><div class="card"><div class="actions"><button class="btn" onclick="openProject()">+ Novo projeto</button></div><div id="projectList" class="list" style="margin-top:12px"></div></div></section>
-<section id="studio" class="page hidden">
-<h2>Criador automático de sites</h2>
-<p class="sub">Crie, visualize e copie sites profissionais em HTML.</p>
 
-<div class="card">
-<h3>Informações do negócio</h3>
+<section id="clients" class="page">
+  <h1>Clientes</h1>
+  <p class="subtitle">Mantenha seus contatos organizados.</p>
+  <div class="card">
+    <label>Nome do cliente</label>
+    <input id="clientName" placeholder="Nome">
+    <label>Contato</label>
+    <input id="clientPhone" placeholder="WhatsApp ou telefone">
+    <button class="primary" onclick="addClient()">Cadastrar cliente</button>
+  </div>
+  <div class="card"><h2>Lista de clientes</h2><div id="clientList"></div></div>
+</section>
 
-<div class="formgrid">
-<div class="field">
-<label>Nome do negócio</label>
-<input id="siteName" placeholder="Nome da empresa">
-</div>
+<section id="projects" class="page">
+  <h1>Projetos</h1>
+  <p class="subtitle">Acompanhe seus trabalhos.</p>
+  <div class="card">
+    <label>Nome do projeto</label>
+    <input id="projectName" placeholder="Ex.: Site da empresa">
+    <label>Status</label>
+    <select id="projectStatus">
+      <option>Em andamento</option>
+      <option>Em aprovação</option>
+      <option>Concluído</option>
+    </select>
+    <button class="primary" onclick="addProject()">Adicionar projeto</button>
+  </div>
+  <div class="card"><h2>Seus projetos</h2><div id="projectList"></div></div>
+</section>
 
-<div class="field">
-<label>Segmento</label>
-<select id="siteType">
-<option>Restaurante</option>
-<option>Loja de açaí</option>
-<option>Academia</option>
-<option>Salão de beleza</option>
-<option>Clínica</option>
-<option>Pet shop</option>
-<option>Loja</option>
-<option>Prestador de serviços</option>
-<option>Outro</option>
-</select>
-</div>
+<section id="studio" class="page">
+  <h1>Criador de Sites</h1>
+  <p class="subtitle">Preencha os dados e gere um site pronto para visualizar, copiar e publicar.</p>
 
-<div class="field">
-<label>Cidade / região</label>
-<input id="siteCity" placeholder="Cidade - UF">
-</div>
+  <div class="notice">O gerador cria páginas HTML automaticamente a partir das informações preenchidas. Não precisa escrever código.</div>
 
-<div class="field">
-<label>Cor principal</label>
-<input id="siteColor" type="color" value="#c49a45">
-</div>
+  <div class="card">
+    <h2>1. Informações do negócio</h2>
+    <label>Nome da empresa</label>
+    <input id="siteName" placeholder="Ex.: Studio Débora Sulamita">
+    <label>Ramo de atividade</label>
+    <input id="siteCategory" placeholder="Ex.: Salão de beleza, oficina, restaurante">
+    <label>Descrição da empresa</label>
+    <textarea id="siteDescription" placeholder="Conte o que a empresa oferece e seus diferenciais"></textarea>
+    <label>Endereço</label>
+    <input id="siteAddress" placeholder="Cidade, bairro ou endereço">
+    <label>WhatsApp com DDD</label>
+    <input id="sitePhone" placeholder="Ex.: 5512999999999">
+    <label>Instagram (opcional)</label>
+    <input id="siteInstagram" placeholder="https://instagram.com/empresa">
+    <label>Serviços ou produtos</label>
+    <textarea id="siteServices" placeholder="Ex.: Cortes, coloração, hidratação. Separe por vírgulas."></textarea>
+  </div>
 
-<div class="field full">
-<label>Produtos e serviços</label>
-<textarea id="siteDetails" placeholder="Descreva os produtos, serviços e diferenciais..."></textarea>
-</div>
+  <div class="card">
+    <h2>2. Personalização</h2>
+    <label>Estilo visual</label>
+    <select id="siteStyle">
+      <option value="modern">Moderno e elegante</option>
+      <option value="luxury">Luxuoso e sofisticado</option>
+      <option value="minimal">Minimalista</option>
+      <option value="bold">Moderno e marcante</option>
+    </select>
+    <label>Cor principal</label>
+    <input type="color" id="siteColor" value="#b68a45">
+    <label>Texto do botão principal</label>
+    <input id="siteButton" value="Fale conosco pelo WhatsApp">
+    <div class="actions">
+      <button class="primary" onclick="generateSite()">GERAR MEU SITE</button>
+      <button onclick="clearSiteForm()">Limpar formulário</button>
+    </div>
+  </div>
 
-<div class="field full">
-<label>WhatsApp com DDD</label>
-<input id="siteContact" placeholder="5511999999999">
-</div>
-</div>
+  <div class="card">
+    <h2>3. Visualização do site</h2>
+    <p class="muted">Depois de gerar, confira o resultado abaixo.</p>
+    <iframe id="preview" title="Prévia do site"></iframe>
+    <div class="actions">
+      <button class="primary" onclick="copySite()">COPIAR CÓDIGO HTML</button>
+      <button onclick="downloadSite()">BAIXAR SITE HTML</button>
+    </div>
+    <p class="muted" id="siteMessage">Seu site aparecerá aqui depois de clicar em Gerar meu site.</p>
+  </div>
+</section>
 
-<div class="actions">
-<button class="btn" onclick="generateAutomaticSite()">GERAR MEU SITE</button>
-<button class="btn secondary" onclick="buildSitePrompt()">Gerar prompt</button>
-</div>
-</div>
-
-<div class="card">
-<h3>Pré-visualização</h3>
-<iframe id="sitePreview" title="Prévia do site" style="width:100%;height:550px;background:white;border:1px solid var(--line);border-radius:12px"></iframe>
-</div>
-
-<div class="card">
-<h3>Código HTML gerado</h3>
-<textarea id="generatedHTML" placeholder="O código do site aparecerá aqui..." style="min-height:250px"></textarea>
-<div class="actions">
-<button class="btn" onclick="copyGeneratedHTML()">COPIAR CÓDIGO</button>
-<button class="btn secondary" onclick="downloadGeneratedHTML()">BAIXAR SITE</button>
-</div>
-</div>
-
-<div class="card">
-<h3>Prompt profissional</h3>
-<textarea id="sitePrompt" placeholder="O prompt aparecerá aqui..." style="min-height:180px"></textarea>
-<div class="actions">
-<button class="btn secondary" onclick="copySitePrompt()">Copiar prompt</button>
-</div>
-</div>
-</section></section>
-<section id="templates" class="page hidden"><h2>Biblioteca de modelos</h2><p class="sub">Estruturas para acelerar o briefing e a criação de sites.</p><div class="list" id="templateList"></div></section>
-<section id="reports" class="page hidden"><h2>Relatórios</h2><p class="sub">Acompanhe seu funil comercial e sua produção.</p><div class="grid"><div class="stat"><span class="label">Taxa de interesse</span><strong id="rRate">0%</strong></div><div class="stat"><span class="label">Conversão em clientes</span><strong id="rClients">0%</strong></div><div class="stat"><span class="label">Projetos entregues</span><strong id="rDelivered">0</strong></div><div class="stat"><span class="label">Ticket médio</span><strong id="rTicket">R$ 0</strong></div></div><div class="card"><h3>Funil de prospecção</h3><div id="funnel" class="list"></div></div><div class="card"><h3>Resumo financeiro</h3><p id="rFinance" class="sub"></p></div></section>
-<section id="finance" class="page hidden"><h2>Financeiro</h2><p class="sub">Registre entradas de projetos vendidos.</p><div class="grid"><div class="stat"><span class="label">Total recebido</span><strong id="fTotal">R$ 0</strong></div><div class="stat"><span class="label">Vendas</span><strong id="fCount">0</strong></div></div><div class="card"><div class="actions"><button class="btn" onclick="openSale()">+ Registrar venda</button></div><div id="saleList" class="list" style="margin-top:12px"></div></div></section>
-<section id="backup" class="page hidden"><h2>Backup e dados</h2><p class="sub">Proteja seus cadastros e transfira-os para outro aparelho.</p><div class="card"><h3>Exportar backup</h3><p class="sub">Baixa um arquivo JSON com empresas, clientes, projetos e vendas.</p><button class="btn" onclick="exportData()">Baixar meu backup</button></div><div class="card"><h3>Importar backup</h3><p class="sub">Importar substitui os dados atuais. Exporte os dados atuais antes.</p><input type="file" id="importFile" accept="application/json"><button class="btn secondary" style="margin-top:10px" onclick="importData()">Importar arquivo</button></div><div class="card"><h3>Apagar dados</h3><p class="sub">Esta ação não pode ser desfeita. Exporte seu backup antes.</p><button class="btn danger" onclick="clearData()">Apagar todos os dados</button></div><div class="notice">Privacidade: esta versão não envia seus cadastros para um servidor. Eles ficam neste navegador/aparelho.</div></section>
 </main>
-<footer>ANON WEB FACTORY · VERSÃO 2.0 · FEITO PARA ORGANIZAR SEU NEGÓCIO</footer>
-</div>
-<div class="bottom"><span>ANON WEB FACTORY · Gestão simples, negócio organizado.</span></div>
-<div class="modal" id="modal"><div class="modalbox"><div class="modalhead"><h3 id="modalTitle">Cadastro</h3><button class="btn secondary small" onclick="closeModal()">Fechar ✕</button></div><div id="modalBody"></div></div></div>
-<script>
-const KEY='anon_web_factory_v1';
-let db={leads:[],clients:[],projects:[],sales:[],activities:[]};
-try{const saved=JSON.parse(localStorage.getItem(KEY));if(saved)db={...db,...saved,activities:saved.activities||[]}}catch(e){}
-const $=id=>document.getElementById(id);
-const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,7);
-const save=()=>{localStorage.setItem(KEY,JSON.stringify(db));renderAll()};
-const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const money=n=>Number(n||0).toLocaleString('pt-BR',{style:'currency',currency:'BRL'});
-function go(tab){document.querySelectorAll('.page').forEach(x=>x.classList.add('hidden'));$(tab).classList.remove('hidden');document.querySelectorAll('.nav button').forEach(b=>b.classList.toggle('active',b.dataset.tab===tab));window.scrollTo(0,0);renderAll()}
-document.querySelectorAll('.nav button').forEach(b=>b.addEventListener('click',()=>go(b.dataset.tab)));
-function openModal(title,body){$('modalTitle').textContent=title;$('modalBody').innerHTML=body;$('modal').classList.add('open')}
-function closeModal(){$('modal').classList.remove('open')}
-function formField(label,id,placeholder='',type='text',value=''){return `<div class="field"><label>${label}</label><input id="${id}" type="${type}" placeholder="${placeholder}" value="${esc(value)}"></div>`}
-function openLead(id=null){const x=db.leads.find(a=>a.id===id)||{};openModal(id?'Editar empresa':'Nova empresa',`
-<div class="formgrid">${formField('Nome da empresa *','lName','Nome', 'text',x.name||'')}${formField('WhatsApp (com DDD)','lPhone','5511999999999','tel',x.phone||'')}${formField('Cidade','lCity','Cidade - UF','text',x.city||'')}<div class="field"><label>Status</label><select id="lStatus">${['Novo contato','Aguardando resposta','Interessado','Não interessado','Cliente'].map(s=>`<option ${x.status===s?'selected':''}>${s}</option>`).join('')}</select></div><div class="field full"><label>Observações</label><textarea id="lNotes">${esc(x.notes||'')}</textarea></div></div><div class="actions"><button class="btn" onclick="saveLead('${id||''}')">Salvar empresa</button></div>`)}
-function saveLead(id){const name=$('lName').value.trim();if(!name)return alert('Informe o nome da empresa.');const old=db.leads.find(x=>x.id===id);const data={id:id||uid(),name,phone:$('lPhone').value.trim(),city:$('lCity').value.trim(),status:$('lStatus').value,notes:$('lNotes').value.trim(),updated:new Date().toISOString()};if(id){db.leads=db.leads.map(x=>x.id===id?data:x);if(old&&old.status!==data.status)addActivity(id,`Status alterado de ${old.status} para ${data.status}`)}else{db.leads.unshift(data);addActivity(data.id,'Empresa cadastrada')}closeModal();save()}
-function wa(phone){let n=(phone||'').replace(/\D/g,'');if(n.length===11)n='55'+n;if(!n.startsWith('55')&&n.length>=10)n='55'+n;return n?'https://wa.me/'+n:''}
-function leadCard(x){return `<div class="item"><div class="item-main"><strong>${esc(x.name)}</strong><small>${esc(x.city||'Cidade não informada')} · ${esc(x.phone||'Sem WhatsApp')}</small><span class="tag">${esc(x.status)}</span>${x.notes?`<small>${esc(x.notes)}</small>`:''}</div><div class="item-actions">${x.phone?`<button class="btn small secondary" onclick="window.open('${wa(x.phone)}','_blank')">WhatsApp</button>`:''}<button class="btn small secondary" onclick="logLeadActivity('${x.id}')">Histórico</button><button class="btn small secondary" onclick="editLead('${x.id}')">Editar</button><button class="btn small danger" onclick="del('leads','${x.id}')">Excluir</button></div></div>`}
-function editLead(id){openLead(id)}
-function addActivity(leadId,note){db.activities.unshift({id:uid(),leadId,note,date:new Date().toISOString()})}
-function logLeadActivity(id){const history=db.activities.filter(a=>a.leadId===id);const lines=history.length?history.map(a=>new Date(a.date).toLocaleString('pt-BR')+' — '+a.note).join('\n'):'Ainda não há atividades registradas.';alert('HISTÓRICO\n\n'+lines);const note=prompt('Adicionar nova atividade (contato, retorno ou próximo passo):');if(!note||!note.trim())return;addActivity(id,note.trim());save();alert('Atividade registrada.')}
-function renderLeads(){const q=($('leadSearch')?.value||'').toLowerCase();const a=db.leads.filter(x=>(x.name+' '+x.city+' '+x.phone).toLowerCase().includes(q));$('leadList').innerHTML=a.length?a.map(leadCard).join(''):'<div class="empty">Nenhuma empresa cadastrada ainda.</div>'}
-function openClient(id=null){const x=db.clients.find(a=>a.id===id)||{};openModal(id?'Editar cliente':'Novo cliente',`<div class="formgrid">${formField('Nome *','cName','Nome do cliente','text',x.name||'')}${formField('WhatsApp','cPhone','DDD + número','tel',x.phone||'')}${formField('Serviço contratado','cService','Ex.: site institucional','text',x.service||'')}<div class="field"><label>Status</label><select id="cStatus">${['Ativo','Em andamento','Concluído'].map(s=>`<option ${x.status===s?'selected':''}>${s}</option>`).join('')}</select></div></div><button class="btn" onclick="saveClient('${id||''}')">Salvar cliente</button>`)}
-function saveClient(id){let name=$('cName').value.trim();if(!name)return alert('Informe o nome.');let d={id:id||uid(),name,phone:$('cPhone').value,service:$('cService').value,status:$('cStatus').value};if(id)db.clients=db.clients.map(x=>x.id===id?d:x);else db.clients.unshift(d);closeModal();save()}
-function openProject(id=null){const x=db.projects.find(a=>a.id===id)||{};openModal(id?'Editar projeto':'Novo projeto',`<div class="formgrid">${formField('Nome do projeto *','pName','Ex.: Site da academia','text',x.name||'')}${formField('Cliente','pClient','Nome do cliente','text',x.client||'')}<div class="field"><label>Etapa</label><select id="pStatus">${['A iniciar','Em desenvolvimento','Aguardando aprovação','Entregue'].map(s=>`<option ${x.status===s?'selected':''}>${s}</option>`).join('')}</select></div>${formField('Link do site','pUrl','https://...','url',x.url||'')}</div><button class="btn" onclick="saveProject('${id||''}')">Salvar projeto</button>`)}
-function saveProject(id){let name=$('pName').value.trim();if(!name)return alert('Informe o projeto.');let d={id:id||uid(),name,client:$('pClient').value,status:$('pStatus').value,url:$('pUrl').value};if(id)db.projects=db.projects.map(x=>x.id===id?d:x);else db.projects.unshift(d);closeModal();save()}
-function openSale(){openModal('Registrar venda',`<div class="formgrid">${formField('Cliente / empresa *','vName','Nome')}${formField('Valor recebido (R$) *','vValue','Ex.: 500','number')}<div class="field"><label>Data</label><input id="vDate" type="date" value="${new Date().toISOString().slice(0,10)}"></div></div><button class="btn" onclick="saveSale()">Registrar venda</button>`)}
-function saveSale(){let name=$('vName').value.trim(),value=Number($('vValue').value);if(!name||!value||value<0)return alert('Informe cliente e valor válido.');db.sales.unshift({id:uid(),name,value,date:$('vDate').value});closeModal();save()}
-function del(type,id){if(confirm('Tem certeza que deseja excluir este registro?')){db[type]=db[type].filter(x=>x.id!==id);save()}}
-function renderAll(){
-$('sLeads').textContent=db.leads.length;$('sInterested').textContent=db.leads.filter(x=>x.status==='Interessado').length;$('sProjects').textContent=db.projects.filter(x=>x.status!=='Entregue').length;$('sSales').textContent=money(db.sales.reduce((s,x)=>s+x.value,0));
-$('recent').innerHTML=db.leads.slice(0,4).map(x=>`<div class="item"><div class="item-main"><strong>${esc(x.name)}</strong><small>${esc(x.city||'')}</small></div><span class="tag">${esc(x.status)}</span></div>`).join('')||'<div class="empty">Cadastre sua primeira empresa para começar.</div>';
-renderLeads();
-$('clientList').innerHTML=db.clients.map(x=>`<div class="item"><div class="item-main"><strong>${esc(x.name)}</strong><small>${esc(x.service||'Serviço não informado')} · ${esc(x.phone||'')}</small><span class="tag">${esc(x.status)}</span></div><div class="item-actions"><button class="btn small secondary" onclick="editClient('${x.id}')">Editar</button><button class="btn small danger" onclick="del('clients','${x.id}')">Excluir</button></div></div>`).join('')||'<div class="empty">Nenhum cliente cadastrado.</div>';
-$('projectList').innerHTML=db.projects.map(x=>`<div class="item"><div class="item-main"><strong>${esc(x.name)}</strong><small>${esc(x.client||'Sem cliente vinculado')}</small><span class="tag">${esc(x.status)}</span>${x.url?`<small><a style="color:var(--gold2)" href="${esc(x.url)}" target="_blank" rel="noopener">Abrir site</a></small>`:''}</div><div class="item-actions"><button class="btn small secondary" onclick="editProject('${x.id}')">Editar</button><button class="btn small danger" onclick="del('projects','${x.id}')">Excluir</button></div></div>`).join('')||'<div class="empty">Nenhum projeto cadastrado.</div>';
-const total=db.sales.reduce((s,x)=>s+x.value,0);$('fTotal').textContent=money(total);$('fCount').textContent=db.sales.length;
-renderV2();
-$('saleList').innerHTML=db.sales.map(x=>`<div class="item"><div class="item-main"><strong>${esc(x.name)}</strong><small>${esc(x.date||'')}</small></div><strong>${money(x.value)}</strong><button class="btn small danger" onclick="del('sales','${x.id}')">Excluir</button></div>`).join('')||'<div class="empty">Nenhuma venda registrada.</div>';
-}
-function editClient(id){openClient(id)}function editProject(id){openProject(id)}
-function buildSitePrompt(){const n=$('siteName').value.trim()||'Nome do negócio';const t=$('siteType').value;const c=$('siteCity').value.trim()||'Cidade não informada';const st=$('siteStyle').value;const d=$('siteDetails').value.trim()||'Apresente os produtos e serviços principais';const ct=$('siteContact').value.trim()||'Adicionar botão de contato';$('sitePrompt').value=`Crie um site profissional, completo e responsivo para ${n}, um negócio do segmento ${t}, localizado em ${c}.\n\nOBJETIVO: apresentar a empresa com credibilidade, atrair clientes e facilitar pedidos ou contatos.\nIDENTIDADE VISUAL: ${st}; layout premium, organizado, tipografia legível, boa hierarquia visual e excelente experiência no celular.\nCONTEÚDO E DIFERENCIAIS: ${d}.\nESTRUTURA: cabeçalho com logotipo e menu; seção inicial com título forte e chamada para ação; apresentação da empresa; produtos/serviços; diferenciais; galeria ou portfólio; avaliações apenas se fornecidas pelo cliente; perguntas frequentes; localização e horário quando informados; rodapé completo.\nCONTATO: ${ct}. Incluir botões de contato visíveis e links funcionais somente com dados fornecidos.\nREQUISITOS: design mobile-first, acessibilidade, carregamento rápido, SEO básico, textos em português do Brasil, imagens coerentes com o segmento e sem inventar endereço, preços, certificações ou avaliações. Entregue todas as páginas e seções prontas, com aparência profissional.
-function copySitePrompt(){const t=$('sitePrompt').value;if(!t)return alert('Gere o prompt primeiro.');copyText(t)}
-function copyText(t){if(navigator.clipboard?.writeText)navigator.clipboard.writeText(t).then(()=>alert('Copiado!')).catch(()=>fallbackCopy(t));else fallbackCopy(t)}
-const templates=[['Restaurante','Cardápio, pratos em destaque, reservas/ pedidos, localização e horários.'],['Loja de açaí','Cardápio de tamanhos e adicionais, montagem do pedido, delivery e WhatsApp.'],['Academia','Planos, modalidades, equipe, estrutura, horários e aula experimental.'],['Salão de beleza','Serviços, profissionais, galeria, agendamento e localização.'],['Clínica','Especialidades, equipe, orientações, convênios somente se confirmados e contato.'],['Pet shop','Produtos, banho e tosa, serviços, equipe, horários e agendamento.'],['Prestador de serviços','Serviços, área atendida, portfólio, processo de orçamento e contato.']];
-function renderV2(){const el=$('templateList');if(el)el.innerHTML=templates.map(([n,d])=>`<div class="item"><div class="item-main"><strong>${n}</strong><small>${d}</small></div><button class="btn small secondary" onclick="useTemplate('${n}')">Usar</button></div>`).join('');const total=db.leads.length,inter=db.leads.filter(x=>x.status==='Interessado').length,clients=db.clients.length+db.leads.filter(x=>x.status==='Cliente').length,delivered=db.projects.filter(x=>x.status==='Entregue').length,avg=db.sales.length?db.sales.reduce((a,x)=>a+Number(x.value||0),0)/db.sales.length:0;const put=(id,v)=>{const e=$(id);if(e)e.textContent=v};put('rRate',total?Math.round(inter/total*100)+'%':'0%');put('rClients',total?Math.round(clients/total*100)+'%':'0%');put('rDelivered',delivered);put('rTicket',money(avg));const f=$('funnel');if(f)f.innerHTML=['Novo contato','Aguardando resposta','Interessado','Não interessado','Cliente'].map(st=>`<div class="item"><span>${st}</span><strong>${db.leads.filter(x=>x.status===st).length}</strong></div>`).join('');put('rFinance',`${db.sales.length} venda(s) registrada(s), total de ${money(db.sales.reduce((a,x)=>a+Number(x.value||0),0))}.`)}
-function useTemplate(n){$('siteType').value=n==='Loja de açaí'?'Loja de açaí':n;go('studio');$('siteDetails').focus()}
 
-function generateMessage(){let name=$('msgName').value.trim()||'[NOME DA EMPRESA]',mine=$('myName').value.trim()||' [SEU NOME]',type=$('msgType').value.trim();let t=$('msgText').value.replaceAll('[EMPRESA]',name).replaceAll('[SEU NOME]',mine);if(type)t=t.replace('empresa',type);$('msgText').value=t}
-function copyMessage(){let t=$('msgText').value;if(navigator.clipboard?.writeText){navigator.clipboard.writeText(t).then(()=>alert('Mensagem copiada!')).catch(()=>fallbackCopy(t))}else fallbackCopy(t)}
-function fallbackCopy(t){let a=document.createElement('textarea');a.value=t;document.body.appendChild(a);a.select();document.execCommand('copy');a.remove();alert('Mensagem copiada!')}
-function exportData(){const blob=new Blob([JSON.stringify(db,null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='anon-web-factory-backup-'+new Date().toISOString().slice(0,10)+'.json';a.click();URL.revokeObjectURL(a.href)}
-function importData(){const f=$('importFile').files[0];if(!f)return alert('Escolha um arquivo de backup.');const r=new FileReader();r.onload=()=>{try{const d=JSON.parse(r.result);if(!d||!Array.isArray(d.leads)||!Array.isArray(d.clients)||!Array.isArray(d.projects)||!Array.isArray(d.sales))throw Error();if(!confirm('Isso substituirá os dados atuais. Continuar?'))return;db={...d,activities:d.activities||[]};save();alert('Backup importado com sucesso!')}catch(e){alert('Arquivo inválido ou incompatível.')}};r.readAsText(f)}
-function clearData(){if(confirm('Apagar TODOS os cadastros e vendas deste navegador?')){db={leads:[],clients:[],projects:[],sales:[],activities:[]};save();alert('Dados apagados.')}}
-renderAll();
+<footer>ANON WEB FACTORY • Central de criação digital</footer>
+
+<script>
+const KEY = "anon_web_factory_complete_v1";
+
+let data = {leads:[],clients:[],projects:[]};
+let generatedHTML = "";
+
+try {
+  const saved = localStorage.getItem(KEY);
+  if(saved) data = {...data,...JSON.parse(saved)};
+} catch(e) {}
+
+function saveData(){
+  localStorage.setItem(KEY,JSON.stringify(data));
+  updateDashboard();
+}
+
+function showPage(id){
+  document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
+  document.querySelectorAll("nav button").forEach(b=>b.classList.remove("active"));
+  document.getElementById(id).classList.add("active");
+  document.querySelector('[data-page="'+id+'"]').classList.add("active");
+}
+
+document.querySelectorAll("nav button").forEach(btn=>{
+  btn.addEventListener("click",()=>showPage(btn.dataset.page));
+});
+
+function safe(value){
+  return String(value||"").replace(/[&<>"']/g,char=>({
+    "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+  }[char]));
+}
+
+function addLead(){
+  const name=document.getElementById("leadName").value.trim();
+  if(!name){alert("Digite o nome da empresa.");return;}
+  data.leads.push({
+    name,
+    phone:document.getElementById("leadPhone").value.trim(),
+    note:document.getElementById("leadNote").value.trim()
+  });
+  ["leadName","leadPhone","leadNote"].forEach(id=>document.getElementById(id).value="");
+  saveData();renderLists();
+}
+
+function addClient(){
+  const name=document.getElementById("clientName").value.trim();
+  if(!name){alert("Digite o nome do cliente.");return;}
+  data.clients.push({name,phone:document.getElementById("clientPhone").value.trim()});
+  document.getElementById("clientName").value="";
+  document.getElementById("clientPhone").value="";
+  saveData();renderLists();
+}
+
+function addProject(){
+  const name=document.getElementById("projectName").value.trim();
+  if(!name){alert("Digite o nome do projeto.");return;}
+  data.projects.push({name,status:document.getElementById("projectStatus").value});
+  document.getElementById("projectName").value="";
+  saveData();renderLists();
+}
+
+function removeItem(type,index){
+  if(!confirm("Deseja excluir este registro?"))return;
+  data[type].splice(index,1);
+  saveData();renderLists();
+}
+
+function renderLists(){
+  document.getElementById("leadList").innerHTML=data.leads.map((x,i)=>`
+    <div class="item"><div><b>${safe(x.name)}</b><div class="muted">${safe(x.phone)} ${safe(x.note)}</div></div>
+    <button onclick="removeItem('leads',${i})">Excluir</button></div>`).join("")||'<p class="muted">Nenhuma empresa cadastrada.</p>';
+
+  document.getElementById("clientList").innerHTML=data.clients.map((x,i)=>`
+    <div class="item"><div><b>${safe(x.name)}</b><div class="muted">${safe(x.phone)}</div></div>
+    <button onclick="removeItem('clients',${i})">Excluir</button></div>`).join("")||'<p class="muted">Nenhum cliente cadastrado.</p>';
+
+  document.getElementById("projectList").innerHTML=data.projects.map((x,i)=>`
+    <div class="item"><div><b>${safe(x.name)}</b><div class="muted">${safe(x.status)}</div></div>
+    <button onclick="removeItem('projects',${i})">Excluir</button></div>`).join("")||'<p class="muted">Nenhum projeto cadastrado.</p>';
+}
+
+function updateDashboard(){
+  document.getElementById("countLeads").textContent=data.leads.length;
+  document.getElementById("countClients").textContent=data.clients.length;
+  document.getElementById("countProjects").textContent=data.projects.length;
+}
+
+function generateSite(){
+  const name=document.getElementById("siteName").value.trim();
+  const category=document.getElementById("siteCategory").value.trim();
+  const description=document.getElementById("siteDescription").value.trim();
+  const address=document.getElementById("siteAddress").value.trim();
+  const phoneRaw=document.getElementById("sitePhone").value.trim();
+  const instagram=document.getElementById("siteInstagram").value.trim();
+  const servicesRaw=document.getElementById("siteServices").value.trim();
+  const style=document.getElementById("siteStyle").value;
+  const color=document.getElementById("siteColor").value;
+  const buttonText=document.getElementById("siteButton").value.trim()||"Fale conosco";
+
+  if(!name||!category||!description){
+    alert("Preencha pelo menos o nome, o ramo e a descrição da empresa.");
+    return;
+  }
+
+  let phone=phoneRaw.replace(/\D/g,"");
+  if(phone && phone.length>=10 && !phone.startsWith("55"))phone="55"+phone;
+
+  const whatsapp=phone.length>=12
+    ? "https://wa.me/"+phone
+    : "#contato";
+
+  const services=servicesRaw.split(",").map(s=>s.trim()).filter(Boolean);
+  const serviceHTML=services.length
+    ? services.map(s=>`<article class="service"><h3>${safe(s)}</h3><p>Entre em contato para saber mais sobre este serviço.</p></article>`).join("")
+    : `<article class="service"><h3>Nossos serviços</h3><p>Entre em contato para conhecer nossas soluções.</p></article>`;
+
+  const backgrounds={
+    modern:"#111827",
+    luxury:"#17130f",
+    minimal:"#f5f5f5",
+    bold:"#151515"
+  };
+  const textColor=style==="minimal"?"#222":"#fff";
+  const muted=style==="minimal"?"#555":"#c7c7c7";
+
+  generatedHTML=`<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="${safe(description)}">
+<title>${safe(name)} | ${safe(category)}</title>
+<style>
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:Arial,sans-serif;background:${backgrounds[style]};color:${textColor}}
+header{padding:22px 7%;display:flex;justify-content:space-between;align-items:center;gap:15px;flex-wrap:wrap;border-bottom:1px solid #7773}
+.logo{font-size:23px;font-weight:900}
+nav a{color:inherit;text-decoration:none;margin-left:18px;font-size:14px}
+.hero{min-height:520px;padding:100px 8%;display:flex;flex-direction:column;justify-content:center;background:linear-gradient(120deg,${backgrounds[style]},${color}66)}
+.tag{color:${color};font-weight:bold;text-transform:uppercase;letter-spacing:3px}
+h1{font-size:clamp(38px,7vw,72px);max-width:850px;line-height:1.05;margin:18px 0}
+.hero p{max-width:650px;color:${muted};font-size:18px;line-height:1.7}
+.btn{display:inline-block;background:${color};color:#fff;padding:16px 24px;border-radius:7px;text-decoration:none;font-weight:bold;margin-top:18px}
+section{padding:75px 8%}
+section h2{font-size:34px;margin-top:0}
+.intro{max-width:750px;color:${muted};line-height:1.8}
+.services{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:18px;margin-top:30px}
+.service{padding:25px;border:1px solid #8885;border-radius:12px;background:${color}13}
+.service h3{margin-top:0}
+.service p{color:${muted};line-height:1.6}
+.contact{background:${color}18;text-align:center}
+.contact p{color:${muted};line-height:1.8}
+footer{text-align:center;padding:25px;color:${muted};border-top:1px solid #8884}
+@media(max-width:600px){header{padding:18px 5%}nav a{margin-left:8px;font-size:12px}.hero{padding:75px 6%}section{padding:55px 6%}}
+</style>
+</head>
+<body>
+<header>
+<div class="logo">${safe(name)}</div>
+<nav><a href="#inicio">Início</a><a href="#sobre">Sobre</a><a href="#servicos">Serviços</a><a href="#contato">Contato</a></nav>
+</header>
+<main>
+<section class="hero" id="inicio">
+<div class="tag">${safe(category)}</div>
+<h1>${safe(name)}</h1>
+<p>${safe(description)}</p>
+<a class="btn" href="${whatsapp}">${safe(buttonText)}</a>
+</section>
+<section id="sobre">
+<h2>Conheça a ${safe(name)}</h2>
+<p class="intro">${safe(description)}</p>
+${address?`<p class="intro"><b>Localização:</b> ${safe(address)}</p>`:""}
+</section>
+<section id="servicos">
+<h2>O que oferecemos</h2>
+<p class="intro">Conheça algumas das nossas soluções e entre em contato para saber mais.</p>
+<div class="services">${serviceHTML}</div>
+</section>
+<section class="contact" id="contato">
+<h2>Vamos conversar?</h2>
+<p>Entre em contato com a nossa equipe. Será um prazer atender você.</p>
+<a class="btn" href="${whatsapp}">${safe(buttonText)}</a>
+${instagram?`<p><a style="color:${color}" href="${safe(instagram)}" target="_blank" rel="noopener">Acompanhe nosso Instagram</a></p>`:""}
+${address?`<p>${safe(address)}</p>`:""}
+</section>
+</main>
+<footer>© ${new Date().getFullYear()} ${safe(name)}. Todos os direitos reservados.</footer>
+</body>
+</html>`;
+
+  document.getElementById("preview").srcdoc=generatedHTML;
+  document.getElementById("siteMessage").textContent="Site gerado! Confira a prévia e copie ou baixe o HTML.";
+  document.getElementById("preview").scrollIntoView({behavior:"smooth",block:"start"});
+}
+
+async function copySite(){
+  if(!generatedHTML){alert("Gere um site primeiro.");return;}
+  try{
+    await navigator.clipboard.writeText(generatedHTML);
+    alert("Código HTML copiado!");
+  }catch(e){
+    const area=document.createElement("textarea");
+    area.value=generatedHTML;
+    document.body.appendChild(area);
+    area.select();
+    const ok=document.execCommand("copy");
+    area.remove();
+    alert(ok?"Código HTML copiado!":"Não foi possível copiar. Tente baixar o arquivo.");
+  }
+}
+
+function downloadSite(){
+  if(!generatedHTML){alert("Gere um site primeiro.");return;}
+  const blob=new Blob([generatedHTML],{type:"text/html;charset=utf-8"});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement("a");
+  a.href=url;
+  a.download="site-gerado.html";
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  URL.revokeObjectURL(url);
+}
+
+function clearSiteForm(){
+  ["siteName","siteCategory","siteDescription","siteAddress","sitePhone","siteInstagram","siteServices"].forEach(id=>document.getElementById(id).value="");
+  document.getElementById("siteStyle").value="modern";
+  document.getElementById("siteColor").value="#b68a45";
+  document.getElementById("siteButton").value="Fale conosco pelo WhatsApp";
+}
+
+document.getElementById("today").textContent=new Date().toLocaleDateString("pt-BR");
+renderLists();
+updateDashboard();
 </script>
-</body></html>
+</body>
+</html>
